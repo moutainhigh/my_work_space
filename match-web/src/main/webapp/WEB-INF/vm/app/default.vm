@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+#parse("app/head.vm")
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        #parse ("app/nav.vm")
+
+        <div id="page-wrapper">
+            $!{screen_content}
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    #parse("app/footer.vm")
+
+</body>
+
+</html>

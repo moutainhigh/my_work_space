@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.match.dao.FinanceProductDao">
+
+	<!-- finance_product 所有查询列 -->
+	<sql id="QUERY_COLUMN_LIST">
+		<![CDATA[id, channel_code, name, periods_time, periods_type, begin_date, end_date, status, create_date, update_date]]>
+	</sql>
+
+	<!-- finance_product 查询列来源表-->
+	<sql id="QUERY_FROM_TABLE"><![CDATA[FROM finance_product]]></sql>
+	
+	<!-- 全部条件(更多功能可以通过queryData扩展实现)  -->
+	<sql id="QUERY_WHERE_CLAUSE">
+		<where>
+	<if test="id != null and id != ''"><![CDATA[AND id = #{id}]]></if>
+	<if test="channelCode != null and channelCode != ''"><![CDATA[AND channel_code = #{channelCode}]]></if>
+	<if test="name != null and name != ''"><![CDATA[AND name = #{name}]]></if>
+	<if test="periodsTime != null and periodsTime != ''"><![CDATA[AND periods_time = #{periodsTime}]]></if>
+	<if test="periodsType != null and periodsType != ''"><![CDATA[AND periods_type = #{periodsType}]]></if>
+	<if test="beginDate != null and beginDate != ''"><![CDATA[AND begin_date = #{beginDate}]]></if>
+	<if test="endDate != null and endDate != ''"><![CDATA[AND end_date = #{endDate}]]></if>
+	<if test="status != null and status != ''"><![CDATA[AND status = #{status}]]></if>
+	<if test="createDate != null and createDate != ''"><![CDATA[AND create_date = #{createDate}]]></if>
+	<if test="updateDate != null and updateDate != ''"><![CDATA[AND update_date = #{updateDate}]]></if>
+			
+		</where>
+	</sql>
+	
+
+
+	<!-- 更新列字段,只要不为NULL则更新,除开主键列 -->
+	<sql id="UPDATE_COLUMN_SET">
+		<set>
+			<if test="id != null"><![CDATA[id = #{id},]]></if>
+			<if test="channelCode != null"><![CDATA[channel_code = #{channelCode},]]></if>
+			<if test="name != null"><![CDATA[name = #{name},]]></if>
+			<if test="periodsTime != null"><![CDATA[periods_time = #{periodsTime},]]></if>
+			<if test="periodsType != null"><![CDATA[periods_type = #{periodsType},]]></if>
+			<if test="beginDate != null"><![CDATA[begin_date = #{beginDate},]]></if>
+			<if test="endDate != null"><![CDATA[end_date = #{endDate},]]></if>
+			<if test="status != null"><![CDATA[status = #{status},]]></if>
+			<if test="createDate != null"><![CDATA[create_date = #{createDate},]]></if>
+			<if test="updateDate != null"><![CDATA[update_date = #{updateDate},]]></if>
+			
+		</set>
+	</sql>
+
+	<!-- 插入finance_product记录 -->
+	<insert id="insertEntry" parameterType="financeProduct" useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+			INSERT INTO finance_product(id, channel_code, name, periods_time, periods_type, begin_date, end_date, status, create_date, update_date)
+			VALUES (#{id}, #{channelCode}, #{name}, #{periodsTime}, #{periodsType}, #{beginDate}, #{endDate}, #{status}, #{createDate}, #{updateDate})
+		]]>
+	</insert>
+	
+	<!-- 返回插入的编号,在事务开启状态下有效 -->
+	<!--<select id="lastSequence" resultType="int"><![CDATA[SELECT LAST_INSERT_ID() AS id]]></select>-->
+
+	<!-- 删除记录,主键IN(array) -->
+	<delete id="deleteByArrayKey" parameterType="java.lang.reflect.Array" >
+		<![CDATA[DELETE FROM finance_product WHERE id IN]]>
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			<![CDATA[#{id}]]>
+		</foreach>
+	</delete>
+
+	<!-- 删除,通过条件 -->
+	<update id="deleteByCondtion" parameterType="financeProduct" >
+		<![CDATA[DELETE FROM finance_product]]>
+		<include refid="QUERY_WHERE_CLAUSE"/>
+	</update>
+
+	<!-- 修改记录通过主键 -->
+	<update id="updateByKey" parameterType="financeProduct" >
+		<![CDATA[UPDATE finance_product]]>
+		<include refid="UPDATE_COLUMN_SET"/>
+		<![CDATA[WHERE id = #{id}]]>
+	</update>
+
+	<!-- 查询,通过主键IN(array) -->
+	<select id="selectEntryArray" parameterType="java.lang.reflect.Array" resultType="financeProduct">
+		<![CDATA[SELECT]]>
+		<include refid="QUERY_COLUMN_LIST"/>
+		<include refid="QUERY_FROM_TABLE"/>
+		<![CDATA[WHERE id IN]]>
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			<![CDATA[#{id}]]>
+		</foreach>
+	</select>
+
+	<!-- 查询,通过条件 -->
+	<select id="selectEntryList" parameterType="financeProduct" resultType="financeProduct">
+		<![CDATA[SELECT]]>
+		<include refid="QUERY_COLUMN_LIST"/>
+		<include refid="QUERY_FROM_TABLE"/>
+		<include refid="QUERY_WHERE_CLAUSE"/>
+	</select>
+
+	<!-- 总数查询,通过条件 -->
+	<select id="selectEntryListCount" parameterType="financeProduct" resultType="int">
+		<![CDATA[SELECT COUNT(id) AS dataCount]]>
+		<include refid="QUERY_FROM_TABLE"/>
+		<include refid="QUERY_WHERE_CLAUSE"/>
+	</select>
+	
+	<!-- 其它SQL语句 -->
+	
+	
+</mapper>

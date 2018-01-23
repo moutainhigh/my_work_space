@@ -1,0 +1,50 @@
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>title</title>
+    <link rel="shortcut icon" type="image/png" href="$!{basePath}/resource/images/logo.png">
+
+    <!-- jQuery -->
+    <script src="$!{basePath}/resource/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="$!{basePath}/resource/js/bootbox.min.js"></script>
+    <script src="$!{basePath}/resource/js/jqueryvalidation/jquery.validate.js"></script>
+    <script src="$!{basePath}/resource/js/jqueryvalidation/additional-methods.js"></script>
+    <script src="$!{basePath}/resource/js/jqueryselectize/selectize.js"></script>
+    <script src="$!{basePath}/resource/js/jqueryserializeobj/jquery-serializeobject.js"></script>
+#*    <script src="$!{basePath}/resource/js/jquery.ns-autogrow.min.js"></script> *#
+
+    <!-- Bootstrap Core CSS -->
+    <link href="$!{basePath}/resource/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="$!{basePath}/resource/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet"> -->
+
+    <!-- MetisMenu CSS -->
+    <link href="$!{basePath}/resource/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="$!{basePath}/resource/dist/css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="$!{basePath}/resource/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="$!{basePath}/resource/bower_components/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="$!{basePath}/resource/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Selectize CSS -->
+    <link href="$!{basePath}/resource/css/jqueryselectize/selectize.default.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>

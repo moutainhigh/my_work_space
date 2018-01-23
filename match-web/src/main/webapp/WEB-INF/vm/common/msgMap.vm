@@ -1,0 +1,17 @@
+<script>
+    var msgMap =  {
+        "200": "操作成功",
+        "1001": "用户组已存在",
+        "1002": "不存在的用户组",
+        "1003": "此用户组下包含有用户",
+        "1004": "不存在的用户",
+        "1005": "功能已存在",
+        "1006": "不存在的功能",
+        "1007": "该功能目前正使用中"
+    }
+    function handleMsg(code, showSuccess) {
+        if (code == "200" && showSuccess || code != "200") {
+            bootbox.alert(msgMap[code]);
+        }
+    }
+</script>

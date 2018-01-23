@@ -1,0 +1,54 @@
+#*自定义宏*#
+##分页
+#macro(showPage $page $pageURL)
+<div class="pagination">
+	#if( (${page.totalPage} <= 1) || (${page.currentPage} > ${page.totalPage}))
+		#set($needPagination = false)
+	#else
+		#set($needPagination = true)
+	#end
+	#if($needPagination)
+		#if($page.exsitparam)
+			#if(${page.currentPage} == 1)
+				<span class="current prev">&lt;&lt; 上一页</span>
+			#else
+				#set($previosPage = ${page.currentPage} - 1)
+				<a href="$pageURL&currentPage=$previosPage" class="prev">&lt;&lt; 上一页</a>
+			#end
+			#foreach($i in [${page.indexNumber}..${page.endNumber}])
+				#if(${page.currentPage} == $i)
+					<span class="current">${page.currentPage}</span>
+				#else
+					<a href="$pageURL&currentPage=${i}">${i}</a>
+				#end
+			#end
+		    #if(${page.currentPage} == ${page.totalPage})
+				<span class="current prev"> 下一页 &gt;&gt;</span>
+			#else
+				#set($nextPage = ${page.currentPage} + 1)
+				<a href="$pageURL&currentPage=$nextPage" class="prev"> 下一页 &gt;&gt;</a>
+			#end
+		#else
+			#if(${page.currentPage} == 1)
+				<span class="current prev">&lt;&lt; 上一页</span>
+			#else
+				#set($previosPage = ${page.currentPage} - 1)
+				<a href="$pageURL?currentPage=$previosPage" class="prev">&lt;&lt; 上一页</a>
+			#end
+			#foreach($i in [${page.indexNumber}..${page.endNumber}])
+				#if(${page.currentPage} == $i)
+					<span class="current">${page.currentPage}</span>
+				#else
+					<a href="$pageURL?currentPage=${i}">${i}</a>
+				#end
+			#end
+		    #if(${page.currentPage} == ${page.totalPage})
+				<span class="current prev"> 下一页  &gt;&gt;</span>
+			#else
+				#set($nextPage = ${page.currentPage} + 1)
+				<a href="$pageURL?currentPage=$nextPage" class="prev"> 下一页  &gt;&gt;</a>
+			#end
+		#end
+	#end
+</div>
+#end

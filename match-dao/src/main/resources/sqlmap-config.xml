@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-config.dtd">
+
+<configuration>
+    <settings>
+        <!-- 映射为java驼峰命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 全局映射器启用缓存 -->
+        <setting name="cacheEnabled" value="true" />
+        <!-- 对于未知的SQL查询，允许返回不同的结果集以达到通用的效果 -->
+        <setting name="multipleResultSetsEnabled" value="true" />
+        <!-- 允许使用列标签代替列名 -->
+        <setting name="useColumnLabel" value="true" />
+        <!-- 数据库超过25000秒仍未响应则超时 -->
+        <setting name="defaultStatementTimeout" value="25000" />
+    </settings>
+
+    <!-- 全局别名设置，在映射文件中只需写别名，而不必写出整个类路径 -->
+    <typeAliases>
+        <typeAlias type="com.match.domain.FinanceChannel" alias="financeChannel"/>
+        <typeAlias type="com.match.domain.FinanceEarlyRedemption" alias="financeEarlyRedemption"/>
+        <typeAlias type="com.match.domain.FinanceProduct" alias="financeProduct"/>
+        <typeAlias type="com.match.domain.LoanChannel" alias="loanChannel"/>
+        <typeAlias type="com.match.domain.LoanEarlyRepayment" alias="loanEarlyRepayment"/>
+    </typeAliases>
+
+    <!-- 映射文件路径 -->
+    <mappers>
+        <mapper resource="sqlmap/FinanceChannel.xml" />
+        <mapper resource="sqlmap/FinanceEarlyRedemption.xml" />
+        <mapper resource="sqlmap/FinanceProduct.xml" />
+        <mapper resource="sqlmap/LoanChannel.xml" />
+        <mapper resource="sqlmap/LoanEarlyRepayment.xml" />
+    </mappers>
+</configuration>

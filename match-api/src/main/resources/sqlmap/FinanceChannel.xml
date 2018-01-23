@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.match.dao.FinanceChannelDao">
+
+	<!-- finance_channel 所有查询列 -->
+	<sql id="QUERY_COLUMN_LIST">
+		<![CDATA[id, finance_channel_code, name, loan_channel_codes, create_date, update_date]]>
+	</sql>
+
+	<!-- finance_channel 查询列来源表-->
+	<sql id="QUERY_FROM_TABLE"><![CDATA[FROM finance_channel]]></sql>
+	
+	<!-- 全部条件(更多功能可以通过queryData扩展实现)  -->
+	<sql id="QUERY_WHERE_CLAUSE">
+		<where>
+	<if test="id != null and id != ''"><![CDATA[AND id = #{id}]]></if>
+	<if test="financeChannelCode != null and financeChannelCode != ''"><![CDATA[AND finance_channel_code = #{financeChannelCode}]]></if>
+	<if test="name != null and name != ''"><![CDATA[AND name = #{name}]]></if>
+	<if test="loanChannelCodes != null and loanChannelCodes != ''"><![CDATA[AND loan_channel_codes = #{loanChannelCodes}]]></if>
+	<if test="createDate != null and createDate != ''"><![CDATA[AND create_date = #{createDate}]]></if>
+	<if test="updateDate != null and updateDate != ''"><![CDATA[AND update_date = #{updateDate}]]></if>
+			
+		</where>
+	</sql>
+	
+
+
+	<!-- 更新列字段,只要不为NULL则更新,除开主键列 -->
+	<sql id="UPDATE_COLUMN_SET">
+		<set>
+			<if test="id != null"><![CDATA[id = #{id},]]></if>
+			<if test="financeChannelCode != null"><![CDATA[finance_channel_code = #{financeChannelCode},]]></if>
+			<if test="name != null"><![CDATA[name = #{name},]]></if>
+			<if test="loanChannelCodes != null"><![CDATA[loan_channel_codes = #{loanChannelCodes},]]></if>
+			<if test="createDate != null"><![CDATA[create_date = #{createDate},]]></if>
+			<if test="updateDate != null"><![CDATA[update_date = #{updateDate},]]></if>
+			
+		</set>
+	</sql>
+
+	<!-- 插入finance_channel记录 -->
+	<insert id="insertEntry" parameterType="financeChannel" useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+			INSERT INTO finance_channel(id, finance_channel_code, name, loan_channel_codes, create_date, update_date)
+			VALUES (#{id}, #{financeChannelCode}, #{name}, #{loanChannelCodes}, #{createDate}, #{updateDate})
+		]]>
+	</insert>
+	
+	<!-- 返回插入的编号,在事务开启状态下有效 -->
+	<!--<select id="lastSequence" resultType="int"><![CDATA[SELECT LAST_INSERT_ID() AS id]]></select>-->
+
+	<!-- 删除记录,主键IN(array) -->
+	<delete id="deleteByArrayKey" parameterType="java.lang.reflect.Array" >
+		<![CDATA[DELETE FROM finance_channel WHERE id IN]]>
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			<![CDATA[#{id}]]>
+		</foreach>
+	</delete>
+
+	<!-- 删除,通过条件 -->
+	<update id="deleteByCondtion" parameterType="financeChannel" >
+		<![CDATA[DELETE FROM finance_channel]]>
+		<include refid="QUERY_WHERE_CLAUSE"/>
+	</update>
+
+	<!-- 修改记录通过主键 -->
+	<update id="updateByKey" parameterType="financeChannel" >
+		<![CDATA[UPDATE finance_channel]]>
+		<include refid="UPDATE_COLUMN_SET"/>
+		<![CDATA[WHERE id = #{id}]]>
+	</update>
+
+	<!-- 查询,通过主键IN(array) -->
+	<select id="selectEntryArray" parameterType="java.lang.reflect.Array" resultType="financeChannel">
+		<![CDATA[SELECT]]>
+		<include refid="QUERY_COLUMN_LIST"/>
+		<include refid="QUERY_FROM_TABLE"/>
+		<![CDATA[WHERE id IN]]>
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			<![CDATA[#{id}]]>
+		</foreach>
+	</select>
+
+	<!-- 查询,通过条件 -->
+	<select id="selectEntryList" parameterType="financeChannel" resultType="financeChannel">
+		<![CDATA[SELECT]]>
+		<include refid="QUERY_COLUMN_LIST"/>
+		<include refid="QUERY_FROM_TABLE"/>
+		<include refid="QUERY_WHERE_CLAUSE"/>
+	</select>
+
+	<!-- 总数查询,通过条件 -->
+	<select id="selectEntryListCount" parameterType="financeChannel" resultType="int">
+		<![CDATA[SELECT COUNT(id) AS dataCount]]>
+		<include refid="QUERY_FROM_TABLE"/>
+		<include refid="QUERY_WHERE_CLAUSE"/>
+	</select>
+	
+	<!-- 其它SQL语句 -->
+	
+	
+</mapper>

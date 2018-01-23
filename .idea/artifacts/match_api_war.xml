@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="match-api:war">
+    <output-path>$PROJECT_DIR$/match-api/target</output-path>
+    <root id="archive" name="match-api.war">
+      <element id="artifact" artifact-name="match-api:war exploded" />
+    </root>
+  </artifact>
+</component>

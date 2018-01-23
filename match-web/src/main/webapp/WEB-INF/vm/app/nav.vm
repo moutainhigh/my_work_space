@@ -1,0 +1,92 @@
+<style type="text/css">
+    .logo {
+        display: block;
+        height: 36px;
+        height: 36px;
+        float: left;
+        martin-top: 6px;
+    }
+
+    .header-n {
+        background: -moz-linear-gradient(left, #aaa, #ddd);
+        filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#aaa', endColorStr='#ddd', gradientType='1');
+        background: -moz-linear-gradient(left, #aaa, #ddd);
+        background: -o-linear-gradient(left, #aaa, #ddd);
+        background: -webkit-gradient(linear, 0% 0%, 100% 0%, from(#aaa), to(#ddd));
+    }
+
+</style>
+<nav class="navbar navbar-default navbar-static-top header-n" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header" style="vertical-align: middle;">
+        <!--         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button> -->
+        <a class="navbar-brand" style='padding-left: 6px; padding-top:6px; vertical-align: middle;width:300px;'
+           href="$!{basePath}/">
+	            <span>
+	            <img src="" style="height: 36px; width: 36px;" alt=""/>
+	           title
+	            </span>
+        </a>
+
+    </div>
+    <!-- /.navbar-header -->
+
+    <ul class="nav navbar-top-links navbar-right">
+
+        <!-- /.dropdown -->
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+                <li><a href="#"><i class="fa fa-user fa-fw"></i> 登录用户:$!{operName}
+                    </a></li>
+            ##                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+        </li>
+        <li class="divider"></li>
+        <li><a href="$!{basePath}/changepass"><i class="fa fa-sign-out fa-fw"></i>修改密码</a>
+        <li><a href="$!{basePath}/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+        </li>
+    </ul>
+    <!-- /.dropdown-user -->
+    </li>
+    <!-- /.dropdown -->
+    </ul>
+    <!-- /.navbar-top-links -->
+
+    <div class="navbar-default sidebar" role="navigation" style="margin-top: 100px;">
+        <div class="sidebar-nav navbar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="sidebar-search">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                    </div>
+                    <!-- /input-group -->
+                </li>
+
+                <li>
+                    <a href="$!{basePath}/index.do"><i class="fa fa-hand-o-right fa-fw"></i>test<span class="fa arrow"></span></a>
+##                    <ul class="nav nav-second-level">
+##                        <li>
+##                            <a href="$!{basePath}/">second level</a>
+##                        </li>
+##                    </ul>
+                </li>
+
+
+
+            </ul>
+        </div>
+        <!-- /.sidebar-collapse -->
+    </div>
+    <!-- /.navbar-static-side -->
+</nav>

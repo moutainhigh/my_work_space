@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.match.dao.FinanceEarlyRedemptionDao">
+
+	<!-- finance_early_redemption 所有查询列 -->
+	<sql id="QUERY_COLUMN_LIST">
+		<![CDATA[id, channel_code, finance_code, redemption_date, finance_products_id, redemption_amount, residue_investment_horizon, create_date, update_date]]>
+	</sql>
+
+	<!-- finance_early_redemption 查询列来源表-->
+	<sql id="QUERY_FROM_TABLE"><![CDATA[FROM finance_early_redemption]]></sql>
+	
+	<!-- 全部条件(更多功能可以通过queryData扩展实现)  -->
+	<sql id="QUERY_WHERE_CLAUSE">
+		<where>
+	<if test="id != null and id != ''"><![CDATA[AND id = #{id}]]></if>
+	<if test="channelCode != null and channelCode != ''"><![CDATA[AND channel_code = #{channelCode}]]></if>
+	<if test="financeCode != null and financeCode != ''"><![CDATA[AND finance_code = #{financeCode}]]></if>
+	<if test="redemptionDate != null and redemptionDate != ''"><![CDATA[AND redemption_date = #{redemptionDate}]]></if>
+	<if test="financeProductsId != null and financeProductsId != ''"><![CDATA[AND finance_products_id = #{financeProductsId}]]></if>
+	<if test="redemptionAmount != null and redemptionAmount != ''"><![CDATA[AND redemption_amount = #{redemptionAmount}]]></if>
+	<if test="residueInvestmentHorizon != null and residueInvestmentHorizon != ''"><![CDATA[AND residue_investment_horizon = #{residueInvestmentHorizon}]]></if>
+	<if test="createDate != null and createDate != ''"><![CDATA[AND create_date = #{createDate}]]></if>
+	<if test="updateDate != null and updateDate != ''"><![CDATA[AND update_date = #{updateDate}]]></if>
+			
+		</where>
+	</sql>
+	
+
+
+	<!-- 更新列字段,只要不为NULL则更新,除开主键列 -->
+	<sql id="UPDATE_COLUMN_SET">
+		<set>
+			<if test="id != null"><![CDATA[id = #{id},]]></if>
+			<if test="channelCode != null"><![CDATA[channel_code = #{channelCode},]]></if>
+			<if test="financeCode != null"><![CDATA[finance_code = #{financeCode},]]></if>
+			<if test="redemptionDate != null"><![CDATA[redemption_date = #{redemptionDate},]]></if>
+			<if test="financeProductsId != null"><![CDATA[finance_products_id = #{financeProductsId},]]></if>
+			<if test="redemptionAmount != null"><![CDATA[redemption_amount = #{redemptionAmount},]]></if>
+			<if test="residueInvestmentHorizon != null"><![CDATA[residue_investment_horizon = #{residueInvestmentHorizon},]]></if>
+			<if test="createDate != null"><![CDATA[create_date = #{createDate},]]></if>
+			<if test="updateDate != null"><![CDATA[update_date = #{updateDate},]]></if>
+			
+		</set>
+	</sql>
+
+	<!-- 插入finance_early_redemption记录 -->
+	<insert id="insertEntry" parameterType="financeEarlyRedemption" useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+			INSERT INTO finance_early_redemption(id, channel_code, finance_code, redemption_date, finance_products_id, redemption_amount, residue_investment_horizon, create_date, update_date)
+			VALUES (#{id}, #{channelCode}, #{financeCode}, #{redemptionDate}, #{financeProductsId}, #{redemptionAmount}, #{residueInvestmentHorizon}, #{createDate}, #{updateDate})
+		]]>
+	</insert>
+	
+	<!-- 返回插入的编号,在事务开启状态下有效 -->
+	<!--<select id="lastSequence" resultType="int"><![CDATA[SELECT LAST_INSERT_ID() AS id]]></select>-->
+
+	<!-- 删除记录,主键IN(array) -->
+	<delete id="deleteByArrayKey" parameterType="java.lang.reflect.Array" >
+		<![CDATA[DELETE FROM finance_early_redemption WHERE id IN]]>
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			<![CDATA[#{id}]]>
+		</foreach>
+	</delete>
+
+	<!-- 删除,通过条件 -->
+	<update id="deleteByCondtion" parameterType="financeEarlyRedemption" >
+		<![CDATA[DELETE FROM finance_early_redemption]]>
+		<include refid="QUERY_WHERE_CLAUSE"/>
+	</update>
+
+	<!-- 修改记录通过主键 -->
+	<update id="updateByKey" parameterType="financeEarlyRedemption" >
+		<![CDATA[UPDATE finance_early_redemption]]>
+		<include refid="UPDATE_COLUMN_SET"/>
+		<![CDATA[WHERE id = #{id}]]>
+	</update>
+
+	<!-- 查询,通过主键IN(array) -->
+	<select id="selectEntryArray" parameterType="java.lang.reflect.Array" resultType="financeEarlyRedemption">
+		<![CDATA[SELECT]]>
+		<include refid="QUERY_COLUMN_LIST"/>
+		<include refid="QUERY_FROM_TABLE"/>
+		<![CDATA[WHERE id IN]]>
+		<foreach collection="array" item="id" open="(" separator="," close=")">
+			<![CDATA[#{id}]]>
+		</foreach>
+	</select>
+
+	<!-- 查询,通过条件 -->
+	<select id="selectEntryList" parameterType="financeEarlyRedemption" resultType="financeEarlyRedemption">
+		<![CDATA[SELECT]]>
+		<include refid="QUERY_COLUMN_LIST"/>
+		<include refid="QUERY_FROM_TABLE"/>
+		<include refid="QUERY_WHERE_CLAUSE"/>
+	</select>
+
+	<!-- 总数查询,通过条件 -->
+	<select id="selectEntryListCount" parameterType="financeEarlyRedemption" resultType="int">
+		<![CDATA[SELECT COUNT(id) AS dataCount]]>
+		<include refid="QUERY_FROM_TABLE"/>
+		<include refid="QUERY_WHERE_CLAUSE"/>
+	</select>
+	
+	<!-- 其它SQL语句 -->
+	
+	
+</mapper>
