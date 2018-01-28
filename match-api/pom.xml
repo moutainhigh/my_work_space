@@ -195,7 +195,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>5.0.3.RELEASE</version>
+            <version>${spring-version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
         <dependency>
@@ -269,8 +269,8 @@
                     <webResources>
                         <resource>
                             <!-- this is relative to the pom.xml directory -->
-                            <directory>src\main\resources</directory>
-                            <targetPath>WEB-INF\classes</targetPath>
+                            <directory>src/main/resources</directory>
+                            <targetPath>WEB-INF/classes</targetPath>
                             <!-- the list has a default value of ** -->
                             <filtering>true</filtering>
                             <includes>

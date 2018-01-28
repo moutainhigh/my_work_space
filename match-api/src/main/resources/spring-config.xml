@@ -18,4 +18,5 @@
 	<import resource="classpath:spring-config-dao.xml"/>
 	<import resource="classpath:spring-config-service.xml"/>
 	<import resource="classpath:spring-config-handler.xml"/>
+	<import resource="classpath:spring-config-servlet.xml"/>
 </beans>

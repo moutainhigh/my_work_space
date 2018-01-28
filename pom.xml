@@ -226,9 +226,9 @@
 			<properties>
 				<jdbc.datasource.type>dbcp</jdbc.datasource.type>
 				<jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
-				<jdbc.url>jdbc:MySql://127.0.0.1:3306/match?characterEncoding=UTF-8</jdbc.url>
+				<jdbc.url>jdbc:MySql://127.0.0.1:3306/match_info?characterEncoding=UTF-8</jdbc.url>
 				<jdbc.username>root</jdbc.username>
-				<jdbc.password>root</jdbc.password>
+				<jdbc.password></jdbc.password>
 				<dbcp.maxActive>15</dbcp.maxActive>
 				<dbcp.maxWait>3000</dbcp.maxWait>
 				<hbase.address>127.0.0.1</hbase.address>
@@ -247,7 +247,7 @@
 				<jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
  				<jdbc.url>jdbc:mysql://localhost:3306/match_info?useUnicode=true&amp;amp;characterEncoding=UTF-8</jdbc.url>
  				<jdbc.username>root</jdbc.username> 
- 				<jdbc.password>root</jdbc.password> 
+ 				<jdbc.password></jdbc.password>
 				<dbcp.maxActive>15</dbcp.maxActive>
 				<dbcp.maxWait>3000</dbcp.maxWait>
 				<hbase.address>127.0.0.1</hbase.address> <!--todo: need modify-->
@@ -268,7 +268,7 @@
 				<jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
  				<jdbc.url>jdbc:mysql://10.66.110.144:3306/match_info?useUnicode=true&amp;amp;characterEncoding=UTF-8</jdbc.url>
 				<jdbc.username>root</jdbc.username>
-				<jdbc.password>kuli2016</jdbc.password>
+				<jdbc.password></jdbc.password>
 				<dbcp.maxActive>15</dbcp.maxActive>
 				<dbcp.maxWait>3000</dbcp.maxWait>
 				<hbase.address>127.0.0.1</hbase.address>  <!--todo: need modify-->

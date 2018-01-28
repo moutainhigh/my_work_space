@@ -1,0 +1,56 @@
+<div class="row" style="margin-left: 10px;">
+    <input type="hidden" name="currentPage" id="currentPage" value="$!{pagination.currentPage}">
+    <input type="hidden" name="page" id="page">
+    <nav>
+        <ul class="pagination" style="margin:0px;">
+            #foreach($page in $!{pagination.pageNumbers})
+                <li #if($!{pagination.currentPage} == $page) class="active" #end
+                                                             onclick="selectPage('$page')">
+                    #if("previous" == $page)
+                        <a aria-label="Previous" href="#">
+                            <span aria-hidden="true">«</span>
+                        </a>
+                    #elseif("next" == $page)
+                        <a aria-label="Next" href="#">
+                            <span aria-hidden="true">»</span>
+                        </a>
+                    #else
+                        <a href="#" onclick="">$page</a>
+                    #end
+                </li>
+            #end
+        </ul>
+        <ul class="pagination" style="vertical-align: top; margin-top: 0.5%;margin-left: 2%;">
+            <span> 共$!{pagination.pageCount}页</span>
+        </ul>
+        <ul class="pagination" style="vertical-align: top; margin-top: 0.5%;margin-left: 2%;">
+            <label>
+                第
+                <input type="text" name="gotoPage" id="gotoPage"
+                       style="border:1px solid #ccc;width: 30px;">
+                &nbsp;页
+                <input type="button" value="确定" class="btn btn-xs btn-outline btn-default"
+                       onclick="gotoPageAndSubmit();">
+            </label>
+##            <label>
+                &nbsp;&nbsp; 共 $!{pagination.totalCount} 条数据
+##            </label>
+        </ul>
+    </nav>
+</div>
+<script type="text/javascript">
+    function selectPage(e) {
+        $("#page").val(e);
+        $("#mainForm").submit();
+    }
+    function gotoPageAndSubmit() {
+        var gotoPage = $("#gotoPage").val();
+        if (gotoPage) {
+            $("#page").val(gotoPage);
+            $("#mainForm").submit();
+        } else {
+            bootbox.alert("跳转页为空,请填写目标页码");
+        }
+    }
+    </script>
+

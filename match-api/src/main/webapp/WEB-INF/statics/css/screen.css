@@ -1,0 +1,404 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+caption, tfoot, thead, article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 10px;
+  font: inherit;
+  vertical-align: baseline;
+}
+table, tbody,tr, th, td{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 10px;
+  font: inherit;
+	}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+  word-break:break-all;
+}
+th, td {
+  text-align: left;
+  font-weight: normal;
+  word-break:break-all;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+body {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  font-family: Helvetica, Arial, Verdana, sans-serif;
+  color:#fff;
+  font-size:16px;
+}
+
+input{
+	margin:0px;
+	padding:5px;
+	-webkit-box-shadow:0px 0px 5px #000 inset;   
+	-webkit-border-radius: 5px;
+	border:1px #666 solid;
+	}
+
+
+.clear {
+  clear: both;
+  overflow: hidden;
+  *zoom: 1;
+}
+
+a:link { text-decoration: none; color:#fff}
+a:visited {text-decoration: none;color:#fff}
+a:hover { text-decoration: none;color:#fff}
+a:active { text-decoration: none;color:#fff}
+
+body {
+   font-family: "Hiragino Kaku Gothic Pro","futura","Helvetica";
+}
+
+body.fontNewRodin {
+    font-family: "Hiragino Kaku Gothic Pro","futura","Helvetica";
+}
+
+body.fontRodin {
+   font-family: "Hiragino Kaku Gothic Pro","futura","Helvetica";
+}
+        
+.fullHeight
+{
+	width:100%;
+	height:100%;
+	display:table;
+}
+
+.header{
+	height:96px;
+	width:616px;
+	background:#000;
+	padding:12px;
+	}
+.logo{
+	display:block;
+	height:97px;
+	height:97px;
+	float:left;}	
+	
+h1{
+	display:block;
+	height:97px;
+	width:500px;
+	line-height:97px;
+	text-align:left;
+	text-indent:20px;
+	float:left;
+	font-size:40px;
+	}	
+.dl_zone{
+	display:block;
+	width:640px;
+	height:550px;
+	background:#e60096;
+	}
+.dl_phone{
+	width:207px;
+	 height:390px;
+	 margin: 0  auto;
+	 padding-top:30px;
+}
+.dl_btn{
+	width:391px;
+	height:102px;
+	margin:0 auto;
+	margin-top:20px;}
+.info_text{
+	width:604px;
+	padding:25px;
+	text-align:left;
+	font-size:26px;
+	color:#3d3d3d;
+}
+.info_text p{
+width:100%;
+margin: 0  auto;
+word-warp:break-word;
+word-break:break-all;
+padding:10px 0 10px 0;
+line-height: 150%;
+font-size:26px;}
+.info_pic{
+	height:502px;
+	width:640px;
+	background:#e60096;
+	padding-top:10px;
+	}
+.info_pic p{
+	font-size:36px;
+	text-indent:20px;
+	}	
+.pic_zone{
+	height:160px;
+	width:640px;
+	margin-top:10px;
+	}	
+.pic_zone img{ 
+display:block;
+float:left;
+margin-left:40px;
+margin-bottom:10px;} 	
+
+ul{
+	display:block;
+	width:85%;
+	margin:0 auto;
+	font-size:26px;
+	list-style:disc;
+	}
+ul li{
+	margin-top:4px;}
+.info_other{
+	width:604px;
+	height:144px;
+	padding:18px;
+	color:#fb0400;
+	font-size:26px;
+	}	
+.coper{
+	width:640px;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	font-size:22px;
+	background:#000;}	
+	
+	
+.sh-header-zone{
+		width:640px;
+		height:456px;
+		}
+.sh-header-zone hr{
+	}		
+.sh-header{
+margin-top:320px;
+padding-top: 1px;
+margin-left: 32px;
+}	
+	
+.sh-yy-header{
+	background:url(../images/1yy-header.png) repeat-x;
+	width:640px;
+	height:456px;
+	padding-top: 1px;}		
+.sh-header-name{
+	font-size:42px;
+	padding-bottom:15px;
+	}	
+.sh-user-zone{
+	width:640px;
+	height:177px;
+	border-bottom:#f0f0f0 1px solid;
+	margin-top:25px;
+	text-align:center
+	
+	}
+.sh-user-info{
+	font-size:18px;
+	color:#afafaf;
+	padding-bottom:15px;
+	margin:0 auto;
+	}	
+.sh-user-avatar{
+	width:77px;
+	height:77px;
+	border-radius: 50%;
+	margin:15px auto;
+	}	
+.sh-user-name{
+	font-size:22px;
+	padding-bottom:15px;
+	color:#000;
+	margin:0 auto;}
+	
+	
+.btn {
+    display: block;
+	width: 580px;
+	height:50px;
+    margin: 10px auto;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px
+}
+
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+    outline: thin dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px
+}
+
+.btn.focus, .btn:focus, .btn:hover {
+    color: #333;
+    text-decoration: none
+}
+
+.btn.active, .btn:active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125)
+}
+
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .65
+}
+
+a.btn.disabled, fieldset[disabled] a.btn {
+    pointer-events: none
+}
+
+.btn-default {
+    color: #333;
+    background-color:#fbd238;
+    border-color: #ccc;
+	height: 80px;
+	font-size: 24px;
+}
+
+.btn-default.focus, .btn-default:focus {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #8c8c8c
+}
+
+.btn-default:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad
+}
+
+.btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad
+}
+
+.btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover {
+    color: #333;
+    background-color: #d4d4d4;
+    border-color: #8c8c8c
+}
+
+.btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default {
+    background-image: none
+}
+
+.btn-default.disabled, .btn-default.disabled.active, .btn-default.disabled.focus,
+.btn-default.disabled:active, .btn-default.disabled:focus, .btn-default.disabled:hover, .btn-default[disabled], .btn-default[disabled].active, .btn-default[disabled].focus,
+.btn-default[disabled]:active, .btn-default[disabled]:focus, .btn-default[disabled]:hover, fieldset[disabled] .btn-default, fieldset[disabled] .btn-default.active,
+fieldset[disabled] .btn-default.focus, fieldset[disabled] .btn-default:active, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default:hover {
+    background-color: #fff;
+    border-color: #ccc
+}
+
+.btn-default .badge {
+    color: #fff;
+    background-color: #333
+}
+.sh-dpxx{
+	width:500px;
+	height:45px;
+	margin:30px 0  20px 30px;
+	background:url(../images/detail-btn-1.png) no-repeat left top;
+	font-size:30px;
+	line-height:45px;
+	text-indent:60px;
+	color:#000;
+	background-size:8%
+	}
+.sh-dpxx-info{
+	width:604px;
+	padding:25px;
+	text-align:left;
+	font-size:26px;
+	color:#3d3d3d;
+}
+	
+.sh-dpxx-info-name, .sh-dpxx-info-tel, .sh-dpxx-info-money, .sh-dpxx-info-time{
+	margin:30px auto;	
+	padding-left:70px;
+	padding-bottom:20px;
+	line-height:60px;
+	border-bottom:1px solid #eee;
+	}
+	
+.sh-dpxx-info-name{
+	background:url(../images/icon-det-4.png) no-repeat 12px 55px;
+	line-height:30px;
+	}
+.sh-dpxx-info-tel{
+	background:url(../images/icon-det-1.png) no-repeat 12px top;
+	}
+.sh-dpxx-info-money{
+	background:url(../images/icon-det-3.png) no-repeat 12px top;
+	}
+.sh-dpxx-info-time{
+	background:url(../images/icon-det-2.png) no-repeat 12px top;
+	}		
+	

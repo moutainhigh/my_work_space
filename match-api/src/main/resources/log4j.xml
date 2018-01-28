@@ -16,14 +16,14 @@
 		</layout>
 	</appender>
 
-	<category name="com.match" additivity="false">  <!-- 自定义的日志分类，请根据实际情况调整 -->
-		<priority value="INFO"/>      <!-- 根据实际情况修改日志级别，一般线上是INFO以上 -->
+	<category name="com.match" additivity="true">  <!-- 自定义的日志分类，请根据实际情况调整 -->
+		<priority value="DEBUG"/>      <!-- 根据实际情况修改日志级别，一般线上是INFO以上 -->
 		<appender-ref ref="CONSOLE"/> <!-- 该appender需要在上线时删除，以免输出重复的日志到catalina.out文件 -->
 		<appender-ref ref="FILE"/>
 	</category>
 
 	<root>
-		<priority value="INFO"/>      <!-- 根据实际情况修改日志级别，一般线上是INFO以上 -->
+		<priority value="DEBUG"/>      <!-- 根据实际情况修改日志级别，一般线上是INFO以上 -->
 		<appender-ref ref="CONSOLE"/> <!-- 该appender需要在上线时删除，以免输出重复的日志到catalina.out文件 -->
 		<appender-ref ref="FILE"/>
 	</root>

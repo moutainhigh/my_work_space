@@ -25,7 +25,7 @@ public class WelcomController extends BaseController{
      *
      * @return
      */
-    @RequestMapping("/index")
+    @RequestMapping("index")
     public ModelAndView index() {
         Map map = Maps.newHashMap();
         map.put("key","key1");
