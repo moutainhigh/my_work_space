@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.dao.mapper.LoanVOMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.entity.loan.model.LoanVO" >
+    <id column="loan_code" property="loanCode" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="user_code" property="userCode" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="loan_money" property="loanMoney" jdbcType="DECIMAL" />
+    <result column="repayment_type" property="repaymentType" jdbcType="VARCHAR" />
+    <result column="periods" property="periods" jdbcType="INTEGER" />
+    <result column="fund_model" property="fundModel" jdbcType="VARCHAR" />
+    <result column="periods_type" property="periodsType" jdbcType="VARCHAR" />
+    <result column="repayment_plan_date" property="repaymentPlanDate" jdbcType="DATE" />
+    <result column="expire_date" property="expireDate" jdbcType="DATE" />
+    <result column="all_in_rate" property="allInRate" jdbcType="DECIMAL" />
+    <result column="loan_rate" property="loanRate" jdbcType="DECIMAL" />
+    <result column="platform_rate" property="platformRate" jdbcType="DECIMAL" />
+    <result column="m_rate" property="mRate" jdbcType="DECIMAL" />
+    <result column="n_rate" property="nRate" jdbcType="DECIMAL" />
+    <result column="payee_type" property="payeeType" jdbcType="VARCHAR" />
+    <result column="payee_bank_account_name" property="payeeBankAccountName" jdbcType="VARCHAR" />
+    <result column="payee_bank_account_no" property="payeeBankAccountNo" jdbcType="VARCHAR" />
+    <result column="payee_bank_province" property="payeeBankProvince" jdbcType="VARCHAR" />
+    <result column="payee_bank_city" property="payeeBankCity" jdbcType="VARCHAR" />
+    <result column="payee_bank_name" property="payeeBankName" jdbcType="VARCHAR" />
+    <result column="payee_bank_dept" property="payeeBankDept" jdbcType="VARCHAR" />
+    <result column="payee_id_type" property="payeeIdType" jdbcType="VARCHAR" />
+    <result column="payee_id_no" property="payeeIdNo" jdbcType="VARCHAR" />
+    <result column="payee_opening_branch" property="payeeOpeningBranch" jdbcType="VARCHAR" />
+    <result column="purpose" property="purpose" jdbcType="VARCHAR" />
+    <result column="bank_account" property="bankAccount" jdbcType="VARCHAR" />
+    <result column="bank_mobile" property="bankMobile" jdbcType="VARCHAR" />
+    <result column="risk_control_score" property="riskControlScore" jdbcType="DECIMAL" />
+    <result column="loan_start_date" property="loanStartDate" jdbcType="DATE" />
+    <result column="id_number" property="idNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    loan_code, create_date, modify_date, user_code, category, name, mobile, loan_money, 
+    repayment_type, periods, fund_model, periods_type, repayment_plan_date, expire_date, 
+    all_in_rate, loan_rate, platform_rate, m_rate, n_rate, payee_type, payee_bank_account_name, 
+    payee_bank_account_no, payee_bank_province, payee_bank_city, payee_bank_name, payee_bank_dept, 
+    payee_id_type, payee_id_no, payee_opening_branch, purpose, bank_account, bank_mobile, 
+    risk_control_score, loan_start_date, id_number
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ooteco.entity.loan.model.LoanVOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ath_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ath_loan
+    where loan_code = #{loanCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ath_loan
+    where loan_code = #{loanCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ooteco.entity.loan.model.LoanVOExample" >
+    delete from ath_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ooteco.entity.loan.model.LoanVO" >
+    insert into ath_loan (loan_code, create_date, modify_date, 
+      user_code, category, name, 
+      mobile, loan_money, repayment_type, 
+      periods, fund_model, periods_type, 
+      repayment_plan_date, expire_date, all_in_rate, 
+      loan_rate, platform_rate, m_rate, 
+      n_rate, payee_type, payee_bank_account_name, 
+      payee_bank_account_no, payee_bank_province, 
+      payee_bank_city, payee_bank_name, payee_bank_dept, 
+      payee_id_type, payee_id_no, payee_opening_branch, 
+      purpose, bank_account, bank_mobile, 
+      risk_control_score, loan_start_date, id_number
+      )
+    values (#{loanCode,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{userCode,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{loanMoney,jdbcType=DECIMAL}, #{repaymentType,jdbcType=VARCHAR}, 
+      #{periods,jdbcType=INTEGER}, #{fundModel,jdbcType=VARCHAR}, #{periodsType,jdbcType=VARCHAR}, 
+      #{repaymentPlanDate,jdbcType=DATE}, #{expireDate,jdbcType=DATE}, #{allInRate,jdbcType=DECIMAL}, 
+      #{loanRate,jdbcType=DECIMAL}, #{platformRate,jdbcType=DECIMAL}, #{mRate,jdbcType=DECIMAL}, 
+      #{nRate,jdbcType=DECIMAL}, #{payeeType,jdbcType=VARCHAR}, #{payeeBankAccountName,jdbcType=VARCHAR}, 
+      #{payeeBankAccountNo,jdbcType=VARCHAR}, #{payeeBankProvince,jdbcType=VARCHAR}, 
+      #{payeeBankCity,jdbcType=VARCHAR}, #{payeeBankName,jdbcType=VARCHAR}, #{payeeBankDept,jdbcType=VARCHAR}, 
+      #{payeeIdType,jdbcType=VARCHAR}, #{payeeIdNo,jdbcType=VARCHAR}, #{payeeOpeningBranch,jdbcType=VARCHAR}, 
+      #{purpose,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR}, #{bankMobile,jdbcType=VARCHAR}, 
+      #{riskControlScore,jdbcType=DECIMAL}, #{loanStartDate,jdbcType=DATE}, #{idNumber,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ooteco.entity.loan.model.LoanVO" >
+    insert into ath_loan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loanCode != null" >
+        loan_code,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="userCode != null" >
+        user_code,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="loanMoney != null" >
+        loan_money,
+      </if>
+      <if test="repaymentType != null" >
+        repayment_type,
+      </if>
+      <if test="periods != null" >
+        periods,
+      </if>
+      <if test="fundModel != null" >
+        fund_model,
+      </if>
+      <if test="periodsType != null" >
+        periods_type,
+      </if>
+      <if test="repaymentPlanDate != null" >
+        repayment_plan_date,
+      </if>
+      <if test="expireDate != null" >
+        expire_date,
+      </if>
+      <if test="allInRate != null" >
+        all_in_rate,
+      </if>
+      <if test="loanRate != null" >
+        loan_rate,
+      </if>
+      <if test="platformRate != null" >
+        platform_rate,
+      </if>
+      <if test="mRate != null" >
+        m_rate,
+      </if>
+      <if test="nRate != null" >
+        n_rate,
+      </if>
+      <if test="payeeType != null" >
+        payee_type,
+      </if>
+      <if test="payeeBankAccountName != null" >
+        payee_bank_account_name,
+      </if>
+      <if test="payeeBankAccountNo != null" >
+        payee_bank_account_no,
+      </if>
+      <if test="payeeBankProvince != null" >
+        payee_bank_province,
+      </if>
+      <if test="payeeBankCity != null" >
+        payee_bank_city,
+      </if>
+      <if test="payeeBankName != null" >
+        payee_bank_name,
+      </if>
+      <if test="payeeBankDept != null" >
+        payee_bank_dept,
+      </if>
+      <if test="payeeIdType != null" >
+        payee_id_type,
+      </if>
+      <if test="payeeIdNo != null" >
+        payee_id_no,
+      </if>
+      <if test="payeeOpeningBranch != null" >
+        payee_opening_branch,
+      </if>
+      <if test="purpose != null" >
+        purpose,
+      </if>
+      <if test="bankAccount != null" >
+        bank_account,
+      </if>
+      <if test="bankMobile != null" >
+        bank_mobile,
+      </if>
+      <if test="riskControlScore != null" >
+        risk_control_score,
+      </if>
+      <if test="loanStartDate != null" >
+        loan_start_date,
+      </if>
+      <if test="idNumber != null" >
+        id_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loanCode != null" >
+        #{loanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userCode != null" >
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="loanMoney != null" >
+        #{loanMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentType != null" >
+        #{repaymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="periods != null" >
+        #{periods,jdbcType=INTEGER},
+      </if>
+      <if test="fundModel != null" >
+        #{fundModel,jdbcType=VARCHAR},
+      </if>
+      <if test="periodsType != null" >
+        #{periodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentPlanDate != null" >
+        #{repaymentPlanDate,jdbcType=DATE},
+      </if>
+      <if test="expireDate != null" >
+        #{expireDate,jdbcType=DATE},
+      </if>
+      <if test="allInRate != null" >
+        #{allInRate,jdbcType=DECIMAL},
+      </if>
+      <if test="loanRate != null" >
+        #{loanRate,jdbcType=DECIMAL},
+      </if>
+      <if test="platformRate != null" >
+        #{platformRate,jdbcType=DECIMAL},
+      </if>
+      <if test="mRate != null" >
+        #{mRate,jdbcType=DECIMAL},
+      </if>
+      <if test="nRate != null" >
+        #{nRate,jdbcType=DECIMAL},
+      </if>
+      <if test="payeeType != null" >
+        #{payeeType,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankAccountName != null" >
+        #{payeeBankAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankAccountNo != null" >
+        #{payeeBankAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankProvince != null" >
+        #{payeeBankProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankCity != null" >
+        #{payeeBankCity,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankName != null" >
+        #{payeeBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankDept != null" >
+        #{payeeBankDept,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeIdType != null" >
+        #{payeeIdType,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeIdNo != null" >
+        #{payeeIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeOpeningBranch != null" >
+        #{payeeOpeningBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="bankMobile != null" >
+        #{bankMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="riskControlScore != null" >
+        #{riskControlScore,jdbcType=DECIMAL},
+      </if>
+      <if test="loanStartDate != null" >
+        #{loanStartDate,jdbcType=DATE},
+      </if>
+      <if test="idNumber != null" >
+        #{idNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ooteco.entity.loan.model.LoanVOExample" resultType="java.lang.Integer" >
+    select count(*) from ath_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ath_loan
+    <set >
+      <if test="record.loanCode != null" >
+        loan_code = #{record.loanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null" >
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userCode != null" >
+        user_code = #{record.userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanMoney != null" >
+        loan_money = #{record.loanMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repaymentType != null" >
+        repayment_type = #{record.repaymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.periods != null" >
+        periods = #{record.periods,jdbcType=INTEGER},
+      </if>
+      <if test="record.fundModel != null" >
+        fund_model = #{record.fundModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.periodsType != null" >
+        periods_type = #{record.periodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repaymentPlanDate != null" >
+        repayment_plan_date = #{record.repaymentPlanDate,jdbcType=DATE},
+      </if>
+      <if test="record.expireDate != null" >
+        expire_date = #{record.expireDate,jdbcType=DATE},
+      </if>
+      <if test="record.allInRate != null" >
+        all_in_rate = #{record.allInRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.loanRate != null" >
+        loan_rate = #{record.loanRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.platformRate != null" >
+        platform_rate = #{record.platformRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mRate != null" >
+        m_rate = #{record.mRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.nRate != null" >
+        n_rate = #{record.nRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payeeType != null" >
+        payee_type = #{record.payeeType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payeeBankAccountName != null" >
+        payee_bank_account_name = #{record.payeeBankAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payeeBankAccountNo != null" >
+        payee_bank_account_no = #{record.payeeBankAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payeeBankProvince != null" >
+        payee_bank_province = #{record.payeeBankProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payeeBankCity != null" >
+        payee_bank_city = #{record.payeeBankCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payeeBankName != null" >
+        payee_bank_name = #{record.payeeBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payeeBankDept != null" >
+        payee_bank_dept = #{record.payeeBankDept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payeeIdType != null" >
+        payee_id_type = #{record.payeeIdType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payeeIdNo != null" >
+        payee_id_no = #{record.payeeIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payeeOpeningBranch != null" >
+        payee_opening_branch = #{record.payeeOpeningBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="record.purpose != null" >
+        purpose = #{record.purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankAccount != null" >
+        bank_account = #{record.bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankMobile != null" >
+        bank_mobile = #{record.bankMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskControlScore != null" >
+        risk_control_score = #{record.riskControlScore,jdbcType=DECIMAL},
+      </if>
+      <if test="record.loanStartDate != null" >
+        loan_start_date = #{record.loanStartDate,jdbcType=DATE},
+      </if>
+      <if test="record.idNumber != null" >
+        id_number = #{record.idNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ath_loan
+    set loan_code = #{record.loanCode,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      user_code = #{record.userCode,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      loan_money = #{record.loanMoney,jdbcType=DECIMAL},
+      repayment_type = #{record.repaymentType,jdbcType=VARCHAR},
+      periods = #{record.periods,jdbcType=INTEGER},
+      fund_model = #{record.fundModel,jdbcType=VARCHAR},
+      periods_type = #{record.periodsType,jdbcType=VARCHAR},
+      repayment_plan_date = #{record.repaymentPlanDate,jdbcType=DATE},
+      expire_date = #{record.expireDate,jdbcType=DATE},
+      all_in_rate = #{record.allInRate,jdbcType=DECIMAL},
+      loan_rate = #{record.loanRate,jdbcType=DECIMAL},
+      platform_rate = #{record.platformRate,jdbcType=DECIMAL},
+      m_rate = #{record.mRate,jdbcType=DECIMAL},
+      n_rate = #{record.nRate,jdbcType=DECIMAL},
+      payee_type = #{record.payeeType,jdbcType=VARCHAR},
+      payee_bank_account_name = #{record.payeeBankAccountName,jdbcType=VARCHAR},
+      payee_bank_account_no = #{record.payeeBankAccountNo,jdbcType=VARCHAR},
+      payee_bank_province = #{record.payeeBankProvince,jdbcType=VARCHAR},
+      payee_bank_city = #{record.payeeBankCity,jdbcType=VARCHAR},
+      payee_bank_name = #{record.payeeBankName,jdbcType=VARCHAR},
+      payee_bank_dept = #{record.payeeBankDept,jdbcType=VARCHAR},
+      payee_id_type = #{record.payeeIdType,jdbcType=VARCHAR},
+      payee_id_no = #{record.payeeIdNo,jdbcType=VARCHAR},
+      payee_opening_branch = #{record.payeeOpeningBranch,jdbcType=VARCHAR},
+      purpose = #{record.purpose,jdbcType=VARCHAR},
+      bank_account = #{record.bankAccount,jdbcType=VARCHAR},
+      bank_mobile = #{record.bankMobile,jdbcType=VARCHAR},
+      risk_control_score = #{record.riskControlScore,jdbcType=DECIMAL},
+      loan_start_date = #{record.loanStartDate,jdbcType=DATE},
+      id_number = #{record.idNumber,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ooteco.entity.loan.model.LoanVO" >
+    update ath_loan
+    <set >
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userCode != null" >
+        user_code = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="loanMoney != null" >
+        loan_money = #{loanMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentType != null" >
+        repayment_type = #{repaymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="periods != null" >
+        periods = #{periods,jdbcType=INTEGER},
+      </if>
+      <if test="fundModel != null" >
+        fund_model = #{fundModel,jdbcType=VARCHAR},
+      </if>
+      <if test="periodsType != null" >
+        periods_type = #{periodsType,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentPlanDate != null" >
+        repayment_plan_date = #{repaymentPlanDate,jdbcType=DATE},
+      </if>
+      <if test="expireDate != null" >
+        expire_date = #{expireDate,jdbcType=DATE},
+      </if>
+      <if test="allInRate != null" >
+        all_in_rate = #{allInRate,jdbcType=DECIMAL},
+      </if>
+      <if test="loanRate != null" >
+        loan_rate = #{loanRate,jdbcType=DECIMAL},
+      </if>
+      <if test="platformRate != null" >
+        platform_rate = #{platformRate,jdbcType=DECIMAL},
+      </if>
+      <if test="mRate != null" >
+        m_rate = #{mRate,jdbcType=DECIMAL},
+      </if>
+      <if test="nRate != null" >
+        n_rate = #{nRate,jdbcType=DECIMAL},
+      </if>
+      <if test="payeeType != null" >
+        payee_type = #{payeeType,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankAccountName != null" >
+        payee_bank_account_name = #{payeeBankAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankAccountNo != null" >
+        payee_bank_account_no = #{payeeBankAccountNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankProvince != null" >
+        payee_bank_province = #{payeeBankProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankCity != null" >
+        payee_bank_city = #{payeeBankCity,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankName != null" >
+        payee_bank_name = #{payeeBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeBankDept != null" >
+        payee_bank_dept = #{payeeBankDept,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeIdType != null" >
+        payee_id_type = #{payeeIdType,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeIdNo != null" >
+        payee_id_no = #{payeeIdNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeOpeningBranch != null" >
+        payee_opening_branch = #{payeeOpeningBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        purpose = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="bankMobile != null" >
+        bank_mobile = #{bankMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="riskControlScore != null" >
+        risk_control_score = #{riskControlScore,jdbcType=DECIMAL},
+      </if>
+      <if test="loanStartDate != null" >
+        loan_start_date = #{loanStartDate,jdbcType=DATE},
+      </if>
+      <if test="idNumber != null" >
+        id_number = #{idNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where loan_code = #{loanCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ooteco.entity.loan.model.LoanVO" >
+    update ath_loan
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      user_code = #{userCode,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      loan_money = #{loanMoney,jdbcType=DECIMAL},
+      repayment_type = #{repaymentType,jdbcType=VARCHAR},
+      periods = #{periods,jdbcType=INTEGER},
+      fund_model = #{fundModel,jdbcType=VARCHAR},
+      periods_type = #{periodsType,jdbcType=VARCHAR},
+      repayment_plan_date = #{repaymentPlanDate,jdbcType=DATE},
+      expire_date = #{expireDate,jdbcType=DATE},
+      all_in_rate = #{allInRate,jdbcType=DECIMAL},
+      loan_rate = #{loanRate,jdbcType=DECIMAL},
+      platform_rate = #{platformRate,jdbcType=DECIMAL},
+      m_rate = #{mRate,jdbcType=DECIMAL},
+      n_rate = #{nRate,jdbcType=DECIMAL},
+      payee_type = #{payeeType,jdbcType=VARCHAR},
+      payee_bank_account_name = #{payeeBankAccountName,jdbcType=VARCHAR},
+      payee_bank_account_no = #{payeeBankAccountNo,jdbcType=VARCHAR},
+      payee_bank_province = #{payeeBankProvince,jdbcType=VARCHAR},
+      payee_bank_city = #{payeeBankCity,jdbcType=VARCHAR},
+      payee_bank_name = #{payeeBankName,jdbcType=VARCHAR},
+      payee_bank_dept = #{payeeBankDept,jdbcType=VARCHAR},
+      payee_id_type = #{payeeIdType,jdbcType=VARCHAR},
+      payee_id_no = #{payeeIdNo,jdbcType=VARCHAR},
+      payee_opening_branch = #{payeeOpeningBranch,jdbcType=VARCHAR},
+      purpose = #{purpose,jdbcType=VARCHAR},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      bank_mobile = #{bankMobile,jdbcType=VARCHAR},
+      risk_control_score = #{riskControlScore,jdbcType=DECIMAL},
+      loan_start_date = #{loanStartDate,jdbcType=DATE},
+      id_number = #{idNumber,jdbcType=VARCHAR}
+    where loan_code = #{loanCode,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.dao.mapper.ext.LoanFullScaleExtVOMapper" >
+<select id="getFullScaleLoans" resultType="java.lang.String">
+    select
+        a.loan_code
+    from
+        (
+            select
+                loan_code,
+                sum( allot_amount ) amount
+            from
+                ath_finance_loan_match
+            where
+                loan_start_date = date_format(now(),'%Y%m%d')
+            group by
+                loan_code
+        ) a,
+        ath_loan_full_scale b
+    where
+        a.amount = b.amount
+        and a.loan_code = b.loan_code
+        and b.is_full = 0
+</select>
+</mapper>

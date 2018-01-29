@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.dao.mapper.WeekValueVOMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.entity.weekValue.model.WeekValueVO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="DATE" />
+    <result column="value" property="value" jdbcType="DECIMAL" />
+    <result column="t_value" property="tValue" jdbcType="DECIMAL" />
+    <result column="sum_price" property="sumPrice" jdbcType="DECIMAL" />
+    <result column="sum_h_price" property="sumHPrice" jdbcType="DECIMAL" />
+    <result column="range_value" property="rangeValue" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, time, value, t_value, sum_price, sum_h_price, range_value
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ooteco.entity.weekValue.model.WeekValueVOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from week_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from week_value
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from week_value
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ooteco.entity.weekValue.model.WeekValueVOExample" >
+    delete from week_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ooteco.entity.weekValue.model.WeekValueVO" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into week_value (time, value, t_value, 
+      sum_price, sum_h_price, range_value
+      )
+    values (#{time,jdbcType=DATE}, #{value,jdbcType=DECIMAL}, #{tValue,jdbcType=DECIMAL}, 
+      #{sumPrice,jdbcType=DECIMAL}, #{sumHPrice,jdbcType=DECIMAL}, #{rangeValue,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ooteco.entity.weekValue.model.WeekValueVO" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into week_value
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="tValue != null" >
+        t_value,
+      </if>
+      <if test="sumPrice != null" >
+        sum_price,
+      </if>
+      <if test="sumHPrice != null" >
+        sum_h_price,
+      </if>
+      <if test="rangeValue != null" >
+        range_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="time != null" >
+        #{time,jdbcType=DATE},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=DECIMAL},
+      </if>
+      <if test="tValue != null" >
+        #{tValue,jdbcType=DECIMAL},
+      </if>
+      <if test="sumPrice != null" >
+        #{sumPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sumHPrice != null" >
+        #{sumHPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="rangeValue != null" >
+        #{rangeValue,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ooteco.entity.weekValue.model.WeekValueVOExample" resultType="java.lang.Integer" >
+    select count(*) from week_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update week_value
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=DATE},
+      </if>
+      <if test="record.value != null" >
+        value = #{record.value,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tValue != null" >
+        t_value = #{record.tValue,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sumPrice != null" >
+        sum_price = #{record.sumPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.sumHPrice != null" >
+        sum_h_price = #{record.sumHPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rangeValue != null" >
+        range_value = #{record.rangeValue,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update week_value
+    set id = #{record.id,jdbcType=INTEGER},
+      time = #{record.time,jdbcType=DATE},
+      value = #{record.value,jdbcType=DECIMAL},
+      t_value = #{record.tValue,jdbcType=DECIMAL},
+      sum_price = #{record.sumPrice,jdbcType=DECIMAL},
+      sum_h_price = #{record.sumHPrice,jdbcType=DECIMAL},
+      range_value = #{record.rangeValue,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ooteco.entity.weekValue.model.WeekValueVO" >
+    update week_value
+    <set >
+      <if test="time != null" >
+        time = #{time,jdbcType=DATE},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=DECIMAL},
+      </if>
+      <if test="tValue != null" >
+        t_value = #{tValue,jdbcType=DECIMAL},
+      </if>
+      <if test="sumPrice != null" >
+        sum_price = #{sumPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sumHPrice != null" >
+        sum_h_price = #{sumHPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="rangeValue != null" >
+        range_value = #{rangeValue,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ooteco.entity.weekValue.model.WeekValueVO" >
+    update week_value
+    set time = #{time,jdbcType=DATE},
+      value = #{value,jdbcType=DECIMAL},
+      t_value = #{tValue,jdbcType=DECIMAL},
+      sum_price = #{sumPrice,jdbcType=DECIMAL},
+      sum_h_price = #{sumHPrice,jdbcType=DECIMAL},
+      range_value = #{rangeValue,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

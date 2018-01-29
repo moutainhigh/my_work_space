@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+       default-autowire="byName">
+
+    <!-- 生成每天默认goods -->
+    <bean id="forecastQuartz" class="com.ooteco.quartz.ForecastQuartz"/>
+    <bean id="superAccountRedemptionQuartz" class="com.ooteco.quartz.SuperAccountRedemptionQuartz"/>
+    <bean id="repaymentScheduleUpdateQuartz" class="com.ooteco.quartz.RepaymentScheduleUpdateQuartz"/>
+    <bean id="rematchQuartz" class="com.ooteco.quartz.RematchQuartz"/>
+
+    <!--  定义目标bean和bean中的方法  -->
+    <bean id="forecastQuartzSettleJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="forecastQuartz"/>
+        <property name="targetMethod" value="superAccountPurchase"/>
+    </bean>
+    <bean id="superAccountRedemptionQuartzSettleJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="superAccountRedemptionQuartz"/>
+        <property name="targetMethod" value="superAccountRedemption"/>
+    </bean>
+    <bean id="repaymentScheduleUpdateQuartzUpdateJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="repaymentScheduleUpdateQuartz"/>
+        <property name="targetMethod" value="update"/>
+    </bean>
+    <bean id="rematchQuartzJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="rematchQuartz"/>
+        <property name="targetMethod" value="rematch"/>
+    </bean>
+    <bean id="collectLoanAndFinanceInformationQuartzCollectJob"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="collectLoanAndFinanceInformationQuartz"/>
+        <property name="targetMethod" value="collect"/>
+    </bean>
+
+    <!--定义触发的时间-->
+    <bean id="forecastQuartzSettleCron" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="forecastQuartzSettleJob"/>
+        </property>
+        <property name="cronExpression">
+            <value>0 0 16,23 * * ?</value>
+        </property>
+    </bean>
+    <bean id="superAccountRedemptionQuartzSettleCron" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="superAccountRedemptionQuartzSettleJob"/>
+        </property>
+        <property name="cronExpression">
+            <value>0 30 0,16 * * ?</value>
+        </property>
+    </bean>
+    <bean id="repaymentScheduleUpdateQuartzUpdateCron" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="repaymentScheduleUpdateQuartzUpdateJob"/>
+        </property>
+        <property name="cronExpression">
+            <value>0 10 0 * * ?</value>
+        </property>
+    </bean>
+    <bean id="rematchQuartzCron" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="rematchQuartzJob"/>
+        </property>
+        <property name="cronExpression">
+            <value>0 0 1 * * ?</value>
+        </property>
+    </bean>
+    <bean id="collectLoanAndFinanceInformationQuartzCollectTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="collectLoanAndFinanceInformationQuartzCollectJob"/>
+        </property>
+        <property name="cronExpression">
+            <value>0 0 18 * * ?</value>
+        </property>
+    </bean>
+
+    <!--  管理触发器  -->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false" autowire="no">
+        <property name="triggers">
+            <list>
+                <ref local="forecastQuartzSettleCron"/>
+                <!--<ref local="collectLoanAndFinanceInformationQuartzCollectTrigger"/>-->
+            </list>
+        </property>
+    </bean>
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false" autowire="no">
+        <property name="triggers">
+            <list>
+                <ref local="superAccountRedemptionQuartzSettleCron"/>
+            </list>
+        </property>
+    </bean>
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false" autowire="no">
+        <property name="triggers">
+            <list>
+                <ref local="repaymentScheduleUpdateQuartzUpdateCron"/>
+            </list>
+        </property>
+    </bean>
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false" autowire="no">
+        <property name="triggers">
+            <list>
+                <ref local="rematchQuartzCron"/>
+            </list>
+        </property>
+    </bean>
+</beans>

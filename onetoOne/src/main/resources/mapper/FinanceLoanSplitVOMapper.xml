@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.dao.mapper.FinanceLoanSplitVOMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.entity.split.model.FinanceLoanSplitVO" >
+    <id column="split_date" property="splitDate" jdbcType="DATE" />
+    <result column="loan_amount" property="loanAmount" jdbcType="DECIMAL" />
+    <result column="repayment_amount" property="repaymentAmount" jdbcType="DECIMAL" />
+    <result column="raise_amount" property="raiseAmount" jdbcType="DECIMAL" />
+    <result column="redemption_amount" property="redemptionAmount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    split_date, loan_amount, repayment_amount, raise_amount, redemption_amount
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ooteco.entity.split.model.FinanceLoanSplitVOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from finance_loan_split
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.util.Date" >
+    select 
+    <include refid="Base_Column_List" />
+    from finance_loan_split
+    where split_date = #{splitDate,jdbcType=DATE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.util.Date" >
+    delete from finance_loan_split
+    where split_date = #{splitDate,jdbcType=DATE}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ooteco.entity.split.model.FinanceLoanSplitVOExample" >
+    delete from finance_loan_split
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ooteco.entity.split.model.FinanceLoanSplitVO" >
+    insert into finance_loan_split (split_date, loan_amount, repayment_amount, 
+      raise_amount, redemption_amount)
+    values (#{splitDate,jdbcType=DATE}, #{loanAmount,jdbcType=DECIMAL}, #{repaymentAmount,jdbcType=DECIMAL}, 
+      #{raiseAmount,jdbcType=DECIMAL}, #{redemptionAmount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ooteco.entity.split.model.FinanceLoanSplitVO" >
+    insert into finance_loan_split
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="splitDate != null" >
+        split_date,
+      </if>
+      <if test="loanAmount != null" >
+        loan_amount,
+      </if>
+      <if test="repaymentAmount != null" >
+        repayment_amount,
+      </if>
+      <if test="raiseAmount != null" >
+        raise_amount,
+      </if>
+      <if test="redemptionAmount != null" >
+        redemption_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="splitDate != null" >
+        #{splitDate,jdbcType=DATE},
+      </if>
+      <if test="loanAmount != null" >
+        #{loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentAmount != null" >
+        #{repaymentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="raiseAmount != null" >
+        #{raiseAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="redemptionAmount != null" >
+        #{redemptionAmount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ooteco.entity.split.model.FinanceLoanSplitVOExample" resultType="java.lang.Integer" >
+    select count(*) from finance_loan_split
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update finance_loan_split
+    <set >
+      <if test="record.splitDate != null" >
+        split_date = #{record.splitDate,jdbcType=DATE},
+      </if>
+      <if test="record.loanAmount != null" >
+        loan_amount = #{record.loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repaymentAmount != null" >
+        repayment_amount = #{record.repaymentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.raiseAmount != null" >
+        raise_amount = #{record.raiseAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.redemptionAmount != null" >
+        redemption_amount = #{record.redemptionAmount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update finance_loan_split
+    set split_date = #{record.splitDate,jdbcType=DATE},
+      loan_amount = #{record.loanAmount,jdbcType=DECIMAL},
+      repayment_amount = #{record.repaymentAmount,jdbcType=DECIMAL},
+      raise_amount = #{record.raiseAmount,jdbcType=DECIMAL},
+      redemption_amount = #{record.redemptionAmount,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ooteco.entity.split.model.FinanceLoanSplitVO" >
+    update finance_loan_split
+    <set >
+      <if test="loanAmount != null" >
+        loan_amount = #{loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentAmount != null" >
+        repayment_amount = #{repaymentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="raiseAmount != null" >
+        raise_amount = #{raiseAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="redemptionAmount != null" >
+        redemption_amount = #{redemptionAmount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where split_date = #{splitDate,jdbcType=DATE}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ooteco.entity.split.model.FinanceLoanSplitVO" >
+    update finance_loan_split
+    set loan_amount = #{loanAmount,jdbcType=DECIMAL},
+      repayment_amount = #{repaymentAmount,jdbcType=DECIMAL},
+      raise_amount = #{raiseAmount,jdbcType=DECIMAL},
+      redemption_amount = #{redemptionAmount,jdbcType=DECIMAL}
+    where split_date = #{splitDate,jdbcType=DATE}
+  </update>
+</mapper>

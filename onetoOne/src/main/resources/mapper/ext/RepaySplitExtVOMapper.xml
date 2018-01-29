@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.dao.mapper.ext.RepaySplitExtVOMapper" >
+  <select id="getRepaySplitCount" resultMap="com.ooteco.dao.mapper.RepaySplitVOMapper.BaseResultMap">
+    select
+        sum( principal ) principal,
+        loan_rate,
+        period,
+        3 as process,
+        user_code,
+        loan_code,
+        start_date,
+        expire_date,
+        repay_id
+    from
+        ath_repay_split
+    where
+        repay_id = 1
+        and is_valid = 1
+    group by
+        start_date
+    having
+        count(*)> 1
+  </select>
+  <update id="updateSamePeriodRepaySplitAfterMerge">
+    update ath_repay_split set is_valid = 0 where repay_id = #{repayId} and start_date = #{startDate}
+  </update>
+
+    <select id="getFinanceSuitableRepays" resultMap="com.ooteco.dao.mapper.RepaySplitVOMapper.BaseResultMap">
+        select
+          *
+        from
+          ath_repay_split
+        where
+          datediff(
+            expire_date,
+            start_date
+          )&gt;= datediff(
+            #{expireDate}, #{startDate})
+            and status = 0
+            and start_date = #{startDate}
+            and is_valid = 1
+        order by
+          start_date,
+          datediff(
+            expire_date,
+            start_date
+          )
+    </select>
+    <select id="getLessThanFinancePeriodRepays" resultMap="com.ooteco.dao.mapper.RepaySplitVOMapper.BaseResultMap">
+        select
+        *
+        from
+        ath_repay_split
+        where
+        datediff(
+        expire_date,
+        start_date
+        ) &lt; datediff(
+        #{expireDate}, #{startDate})
+        and status = 0
+        and start_date = #{startDate}
+        and is_valid = 1
+        order by
+        start_date,
+        datediff(
+        expire_date,
+        start_date
+        )
+    </select>
+    <select id="getAfterAllotRemainSuitableRepays" resultMap="com.ooteco.dao.mapper.RepaySplitVOMapper.BaseResultMap">
+        select DISTINCT a.* from ath_repay_split a,ath_finance_loan_match b
+        WHERE
+        a.loan_code = b.loan_code
+        and datediff(
+            a.expire_date,
+            a.start_date
+          )&gt;= datediff(
+            #{expireDate}, #{startDate})
+            and a.status = 0
+            and start_date = #{startDate}
+            and a.is_valid = 1
+        order by
+          a.start_date,
+          datediff(
+            a.expire_date,
+            a.start_date
+          )
+    </select>
+    <select id="findMinDate" resultType="DATE" >
+        select min(start_date) from ath_repay_split
+    </select>
+    <select id="findMaxDate" resultType="DATE" >
+        select max(start_date) from ath_repay_split
+    </select>
+    <select id="getTodayLimit" resultType="java.math.BigDecimal">
+        SELECT
+            sum(principal)
+        FROM
+            ath_repay_split
+        WHERE
+            start_date = date_format(now(), '%Y%m%d')
+        AND is_valid = 1
+        AND STATUS = 0
+    </select>
+</mapper>

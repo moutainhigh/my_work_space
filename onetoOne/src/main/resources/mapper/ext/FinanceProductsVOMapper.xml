@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.dao.mapper.ext.FinanceProductsExtVOMapper" >
+<resultMap id="BaseResultMap" type="com.ooteco.entity.financeProducts.model.FinanceProductsVO" >
+  <id column="id" property="id" jdbcType="INTEGER" />
+  <result column="code" property="code" jdbcType="INTEGER" />
+  <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+  <result column="raise_date" property="raiseDate" jdbcType="DATE" />
+  <result column="carry_interest_date" property="carryInterestDate" jdbcType="DATE" />
+  <result column="expire_date" property="expireDate" jdbcType="DATE" />
+  <result column="days" property="days" jdbcType="INTEGER" />
+  <result column="predict_year_earnings" property="predictYearEarnings" jdbcType="VARCHAR" />
+  <result column="sales_volume" property="salesVolume" jdbcType="DECIMAL" />
+  <result column="expire_interest" property="expireInterest" jdbcType="DECIMAL" />
+  <result column="expire_returned_money" property="expireReturnedMoney" jdbcType="DECIMAL" />
+  <result column="invest_count" property="investCount" jdbcType="INTEGER" />
+  <result column="status" property="status" jdbcType="VARCHAR" />
+  <result column="to_asset_name" property="toAssetName" jdbcType="VARCHAR" />
+  <result column="year_days" property="yearDays" jdbcType="INTEGER" />
+  <result column="year_sales_volume" property="yearSalesVolume" jdbcType="DECIMAL" />
+  <result column="procedure_rate" property="procedureRate" jdbcType="DECIMAL" />
+  <result column="procedure_price" property="procedurePrice" jdbcType="DECIMAL" />
+  <result column="asset_rate" property="assetRate" jdbcType="DECIMAL" />
+  <result column="expire_asset_cash_interest" property="expireAssetCashInterest" jdbcType="DECIMAL" />
+  <result column="interest_differential" property="interestDifferential" jdbcType="DECIMAL" />
+  <result column="year_sale" property="yearSale" jdbcType="DECIMAL" />
+</resultMap>
+<select id="findMinRaiseDate" resultType="DATE" >
+  select min(raise_date) from finance_products
+</select>
+<select id="findMinCiDate" resultType="DATE" >
+  select min(carry_interest_date) from finance_products
+</select>
+<select id="findMaxCiDate" resultType="DATE" >
+  select max(carry_interest_date) from finance_products
+</select>
+</mapper>

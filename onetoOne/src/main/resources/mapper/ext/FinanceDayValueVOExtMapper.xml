@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.dao.mapper.ext.FinanceDayValueVOExtMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.entity.financeDayValue.model.FinanceDayValueVO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="time" property="time" jdbcType="DATE" />
+    <result column="value" property="value" jdbcType="DECIMAL" />
+    <result column="t_value" property="tValue" jdbcType="DECIMAL" />
+    <result column="sum_price" property="sumPrice" jdbcType="DECIMAL" />
+    <result column="sum_h_price" property="sumHPrice" jdbcType="DECIMAL" />
+    <result column="range_value" property="rangeValue" jdbcType="DECIMAL" />
+    <result column="forecast_net_amount" property="forecastNetAmount" jdbcType="DECIMAL" />
+    <result column="practical_net_amount" property="practicalNetAmount" jdbcType="DECIMAL" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="findMinNetAmount" resultType="java.math.BigDecimal">
+    select min(forecast_net_amount) from finance_day_value where time &gt;= #{beginDate} and time &lt;= #{endDate}
+  </select>
+  <select id="findMinPracticalNetAmount" resultType="java.math.BigDecimal">
+    select min(practical_net_amount) from finance_day_value where time &gt;= #{beginDate} and time &lt; #{endDate}
+  </select>
+  <update id="update">
+    update finance_day_value set practical_net_amount = practical_net_amount - #{money} where time &gt;= #{beginDate} and time &lt; #{endDate}
+  </update>
+  <update id="addMoney">
+    update finance_day_value set practical_net_amount = practical_net_amount + #{money} where time &gt;= #{beginDate} and time &lt; #{endDate}
+  </update>
+  <select id="financeDayValue" resultType="java.math.BigDecimal">
+    select sum(principal) from ath_repay_split where start_date &lt;= #{date} and expire_date &gt; #{date} and is_valid = 1 and status = 0;
+  </select>
+  <delete id="deleteFinanceDayValue">
+    delete from finance_day_value;
+  </delete>
+</mapper>

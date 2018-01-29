@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.dao.mapper.TLoanVOMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.entity.tloan.model.TLoanVO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="refund_id" property="refundId" jdbcType="INTEGER" />
+    <result column="phase" property="phase" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="capital" property="capital" jdbcType="DECIMAL" />
+    <result column="capital_balance" property="capitalBalance" jdbcType="DECIMAL" />
+    <result column="interest" property="interest" jdbcType="DECIMAL" />
+    <result column="interest_balance" property="interestBalance" jdbcType="DECIMAL" />
+    <result column="fee" property="fee" jdbcType="DECIMAL" />
+    <result column="fee_balance" property="feeBalance" jdbcType="DECIMAL" />
+    <result column="zxfee" property="zxfee" jdbcType="DECIMAL" />
+    <result column="rate" property="rate" jdbcType="DECIMAL" />
+    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="period_day" property="periodDay" jdbcType="INTEGER" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="end_date_f" property="endDateF" jdbcType="TIMESTAMP" />
+    <result column="payment_status" property="paymentStatus" jdbcType="VARCHAR" />
+    <result column="payment_date" property="paymentDate" jdbcType="VARCHAR" />
+    <result column="locked" property="locked" jdbcType="BIGINT" />
+    <result column="borrowing_formId" property="borrowingFormid" jdbcType="INTEGER" />
+    <result column="borrowing_productId" property="borrowingProductid" jdbcType="INTEGER" />
+    <result column="borrowing_productName" property="borrowingProductname" jdbcType="VARCHAR" />
+    <result column="total_phase" property="totalPhase" jdbcType="INTEGER" />
+    <result column="pase_due" property="paseDue" jdbcType="BIGINT" />
+    <result column="is_current_repayment_phase" property="isCurrentRepaymentPhase" jdbcType="BIGINT" />
+    <result column="retailer_goods_id" property="retailerGoodsId" jdbcType="INTEGER" />
+    <result column="retailer_goods_name" property="retailerGoodsName" jdbcType="VARCHAR" />
+    <result column="overdue_amount" property="overdueAmount" jdbcType="DECIMAL" />
+    <result column="is_allocation_complete" property="isAllocationComplete" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, refund_id, phase, type, capital, capital_balance, interest, interest_balance, 
+    fee, fee_balance, zxfee, rate, start_date, period_day, end_date, end_date_f, payment_status, 
+    payment_date, locked, borrowing_formId, borrowing_productId, borrowing_productName, 
+    total_phase, pase_due, is_current_repayment_phase, retailer_goods_id, retailer_goods_name, 
+    overdue_amount, is_allocation_complete
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ooteco.entity.tloan.model.TLoanVOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_loan
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_loan
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ooteco.entity.tloan.model.TLoanVOExample" >
+    delete from t_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ooteco.entity.tloan.model.TLoanVO" >
+    insert into t_loan (id, refund_id, phase, 
+      type, capital, capital_balance, 
+      interest, interest_balance, fee, 
+      fee_balance, zxfee, rate, 
+      start_date, period_day, end_date, 
+      end_date_f, payment_status, payment_date, 
+      locked, borrowing_formId, borrowing_productId, 
+      borrowing_productName, total_phase, pase_due, 
+      is_current_repayment_phase, retailer_goods_id, 
+      retailer_goods_name, overdue_amount, is_allocation_complete
+      )
+    values (#{id,jdbcType=INTEGER}, #{refundId,jdbcType=INTEGER}, #{phase,jdbcType=INTEGER}, 
+      #{type,jdbcType=VARCHAR}, #{capital,jdbcType=DECIMAL}, #{capitalBalance,jdbcType=DECIMAL}, 
+      #{interest,jdbcType=DECIMAL}, #{interestBalance,jdbcType=DECIMAL}, #{fee,jdbcType=DECIMAL}, 
+      #{feeBalance,jdbcType=DECIMAL}, #{zxfee,jdbcType=DECIMAL}, #{rate,jdbcType=DECIMAL}, 
+      #{startDate,jdbcType=TIMESTAMP}, #{periodDay,jdbcType=INTEGER}, #{endDate,jdbcType=TIMESTAMP}, 
+      #{endDateF,jdbcType=TIMESTAMP}, #{paymentStatus,jdbcType=VARCHAR}, #{paymentDate,jdbcType=VARCHAR}, 
+      #{locked,jdbcType=BIGINT}, #{borrowingFormid,jdbcType=INTEGER}, #{borrowingProductid,jdbcType=INTEGER}, 
+      #{borrowingProductname,jdbcType=VARCHAR}, #{totalPhase,jdbcType=INTEGER}, #{paseDue,jdbcType=BIGINT}, 
+      #{isCurrentRepaymentPhase,jdbcType=BIGINT}, #{retailerGoodsId,jdbcType=INTEGER}, 
+      #{retailerGoodsName,jdbcType=VARCHAR}, #{overdueAmount,jdbcType=DECIMAL}, #{isAllocationComplete,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ooteco.entity.tloan.model.TLoanVO" >
+    insert into t_loan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="refundId != null" >
+        refund_id,
+      </if>
+      <if test="phase != null" >
+        phase,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="capital != null" >
+        capital,
+      </if>
+      <if test="capitalBalance != null" >
+        capital_balance,
+      </if>
+      <if test="interest != null" >
+        interest,
+      </if>
+      <if test="interestBalance != null" >
+        interest_balance,
+      </if>
+      <if test="fee != null" >
+        fee,
+      </if>
+      <if test="feeBalance != null" >
+        fee_balance,
+      </if>
+      <if test="zxfee != null" >
+        zxfee,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="periodDay != null" >
+        period_day,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="endDateF != null" >
+        end_date_f,
+      </if>
+      <if test="paymentStatus != null" >
+        payment_status,
+      </if>
+      <if test="paymentDate != null" >
+        payment_date,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+      <if test="borrowingFormid != null" >
+        borrowing_formId,
+      </if>
+      <if test="borrowingProductid != null" >
+        borrowing_productId,
+      </if>
+      <if test="borrowingProductname != null" >
+        borrowing_productName,
+      </if>
+      <if test="totalPhase != null" >
+        total_phase,
+      </if>
+      <if test="paseDue != null" >
+        pase_due,
+      </if>
+      <if test="isCurrentRepaymentPhase != null" >
+        is_current_repayment_phase,
+      </if>
+      <if test="retailerGoodsId != null" >
+        retailer_goods_id,
+      </if>
+      <if test="retailerGoodsName != null" >
+        retailer_goods_name,
+      </if>
+      <if test="overdueAmount != null" >
+        overdue_amount,
+      </if>
+      <if test="isAllocationComplete != null" >
+        is_allocation_complete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="refundId != null" >
+        #{refundId,jdbcType=INTEGER},
+      </if>
+      <if test="phase != null" >
+        #{phase,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="capital != null" >
+        #{capital,jdbcType=DECIMAL},
+      </if>
+      <if test="capitalBalance != null" >
+        #{capitalBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null" >
+        #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="interestBalance != null" >
+        #{interestBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="feeBalance != null" >
+        #{feeBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="zxfee != null" >
+        #{zxfee,jdbcType=DECIMAL},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="periodDay != null" >
+        #{periodDay,jdbcType=INTEGER},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDateF != null" >
+        #{endDateF,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentStatus != null" >
+        #{paymentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentDate != null" >
+        #{paymentDate,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=BIGINT},
+      </if>
+      <if test="borrowingFormid != null" >
+        #{borrowingFormid,jdbcType=INTEGER},
+      </if>
+      <if test="borrowingProductid != null" >
+        #{borrowingProductid,jdbcType=INTEGER},
+      </if>
+      <if test="borrowingProductname != null" >
+        #{borrowingProductname,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPhase != null" >
+        #{totalPhase,jdbcType=INTEGER},
+      </if>
+      <if test="paseDue != null" >
+        #{paseDue,jdbcType=BIGINT},
+      </if>
+      <if test="isCurrentRepaymentPhase != null" >
+        #{isCurrentRepaymentPhase,jdbcType=BIGINT},
+      </if>
+      <if test="retailerGoodsId != null" >
+        #{retailerGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="retailerGoodsName != null" >
+        #{retailerGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueAmount != null" >
+        #{overdueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="isAllocationComplete != null" >
+        #{isAllocationComplete,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ooteco.entity.tloan.model.TLoanVOExample" resultType="java.lang.Integer" >
+    select count(*) from t_loan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_loan
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.refundId != null" >
+        refund_id = #{record.refundId,jdbcType=INTEGER},
+      </if>
+      <if test="record.phase != null" >
+        phase = #{record.phase,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.capital != null" >
+        capital = #{record.capital,jdbcType=DECIMAL},
+      </if>
+      <if test="record.capitalBalance != null" >
+        capital_balance = #{record.capitalBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interest != null" >
+        interest = #{record.interest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interestBalance != null" >
+        interest_balance = #{record.interestBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fee != null" >
+        fee = #{record.fee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.feeBalance != null" >
+        fee_balance = #{record.feeBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.zxfee != null" >
+        zxfee = #{record.zxfee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rate != null" >
+        rate = #{record.rate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.startDate != null" >
+        start_date = #{record.startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.periodDay != null" >
+        period_day = #{record.periodDay,jdbcType=INTEGER},
+      </if>
+      <if test="record.endDate != null" >
+        end_date = #{record.endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endDateF != null" >
+        end_date_f = #{record.endDateF,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.paymentStatus != null" >
+        payment_status = #{record.paymentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentDate != null" >
+        payment_date = #{record.paymentDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.locked != null" >
+        locked = #{record.locked,jdbcType=BIGINT},
+      </if>
+      <if test="record.borrowingFormid != null" >
+        borrowing_formId = #{record.borrowingFormid,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowingProductid != null" >
+        borrowing_productId = #{record.borrowingProductid,jdbcType=INTEGER},
+      </if>
+      <if test="record.borrowingProductname != null" >
+        borrowing_productName = #{record.borrowingProductname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalPhase != null" >
+        total_phase = #{record.totalPhase,jdbcType=INTEGER},
+      </if>
+      <if test="record.paseDue != null" >
+        pase_due = #{record.paseDue,jdbcType=BIGINT},
+      </if>
+      <if test="record.isCurrentRepaymentPhase != null" >
+        is_current_repayment_phase = #{record.isCurrentRepaymentPhase,jdbcType=BIGINT},
+      </if>
+      <if test="record.retailerGoodsId != null" >
+        retailer_goods_id = #{record.retailerGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.retailerGoodsName != null" >
+        retailer_goods_name = #{record.retailerGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overdueAmount != null" >
+        overdue_amount = #{record.overdueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isAllocationComplete != null" >
+        is_allocation_complete = #{record.isAllocationComplete,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_loan
+    set id = #{record.id,jdbcType=INTEGER},
+      refund_id = #{record.refundId,jdbcType=INTEGER},
+      phase = #{record.phase,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=VARCHAR},
+      capital = #{record.capital,jdbcType=DECIMAL},
+      capital_balance = #{record.capitalBalance,jdbcType=DECIMAL},
+      interest = #{record.interest,jdbcType=DECIMAL},
+      interest_balance = #{record.interestBalance,jdbcType=DECIMAL},
+      fee = #{record.fee,jdbcType=DECIMAL},
+      fee_balance = #{record.feeBalance,jdbcType=DECIMAL},
+      zxfee = #{record.zxfee,jdbcType=DECIMAL},
+      rate = #{record.rate,jdbcType=DECIMAL},
+      start_date = #{record.startDate,jdbcType=TIMESTAMP},
+      period_day = #{record.periodDay,jdbcType=INTEGER},
+      end_date = #{record.endDate,jdbcType=TIMESTAMP},
+      end_date_f = #{record.endDateF,jdbcType=TIMESTAMP},
+      payment_status = #{record.paymentStatus,jdbcType=VARCHAR},
+      payment_date = #{record.paymentDate,jdbcType=VARCHAR},
+      locked = #{record.locked,jdbcType=BIGINT},
+      borrowing_formId = #{record.borrowingFormid,jdbcType=INTEGER},
+      borrowing_productId = #{record.borrowingProductid,jdbcType=INTEGER},
+      borrowing_productName = #{record.borrowingProductname,jdbcType=VARCHAR},
+      total_phase = #{record.totalPhase,jdbcType=INTEGER},
+      pase_due = #{record.paseDue,jdbcType=BIGINT},
+      is_current_repayment_phase = #{record.isCurrentRepaymentPhase,jdbcType=BIGINT},
+      retailer_goods_id = #{record.retailerGoodsId,jdbcType=INTEGER},
+      retailer_goods_name = #{record.retailerGoodsName,jdbcType=VARCHAR},
+      overdue_amount = #{record.overdueAmount,jdbcType=DECIMAL},
+      is_allocation_complete = #{record.isAllocationComplete,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ooteco.entity.tloan.model.TLoanVO" >
+    update t_loan
+    <set >
+      <if test="refundId != null" >
+        refund_id = #{refundId,jdbcType=INTEGER},
+      </if>
+      <if test="phase != null" >
+        phase = #{phase,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="capital != null" >
+        capital = #{capital,jdbcType=DECIMAL},
+      </if>
+      <if test="capitalBalance != null" >
+        capital_balance = #{capitalBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null" >
+        interest = #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="interestBalance != null" >
+        interest_balance = #{interestBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="fee != null" >
+        fee = #{fee,jdbcType=DECIMAL},
+      </if>
+      <if test="feeBalance != null" >
+        fee_balance = #{feeBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="zxfee != null" >
+        zxfee = #{zxfee,jdbcType=DECIMAL},
+      </if>
+      <if test="rate != null" >
+        rate = #{rate,jdbcType=DECIMAL},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="periodDay != null" >
+        period_day = #{periodDay,jdbcType=INTEGER},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDateF != null" >
+        end_date_f = #{endDateF,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentStatus != null" >
+        payment_status = #{paymentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentDate != null" >
+        payment_date = #{paymentDate,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        locked = #{locked,jdbcType=BIGINT},
+      </if>
+      <if test="borrowingFormid != null" >
+        borrowing_formId = #{borrowingFormid,jdbcType=INTEGER},
+      </if>
+      <if test="borrowingProductid != null" >
+        borrowing_productId = #{borrowingProductid,jdbcType=INTEGER},
+      </if>
+      <if test="borrowingProductname != null" >
+        borrowing_productName = #{borrowingProductname,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPhase != null" >
+        total_phase = #{totalPhase,jdbcType=INTEGER},
+      </if>
+      <if test="paseDue != null" >
+        pase_due = #{paseDue,jdbcType=BIGINT},
+      </if>
+      <if test="isCurrentRepaymentPhase != null" >
+        is_current_repayment_phase = #{isCurrentRepaymentPhase,jdbcType=BIGINT},
+      </if>
+      <if test="retailerGoodsId != null" >
+        retailer_goods_id = #{retailerGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="retailerGoodsName != null" >
+        retailer_goods_name = #{retailerGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="overdueAmount != null" >
+        overdue_amount = #{overdueAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="isAllocationComplete != null" >
+        is_allocation_complete = #{isAllocationComplete,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ooteco.entity.tloan.model.TLoanVO" >
+    update t_loan
+    set refund_id = #{refundId,jdbcType=INTEGER},
+      phase = #{phase,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      capital = #{capital,jdbcType=DECIMAL},
+      capital_balance = #{capitalBalance,jdbcType=DECIMAL},
+      interest = #{interest,jdbcType=DECIMAL},
+      interest_balance = #{interestBalance,jdbcType=DECIMAL},
+      fee = #{fee,jdbcType=DECIMAL},
+      fee_balance = #{feeBalance,jdbcType=DECIMAL},
+      zxfee = #{zxfee,jdbcType=DECIMAL},
+      rate = #{rate,jdbcType=DECIMAL},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      period_day = #{periodDay,jdbcType=INTEGER},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      end_date_f = #{endDateF,jdbcType=TIMESTAMP},
+      payment_status = #{paymentStatus,jdbcType=VARCHAR},
+      payment_date = #{paymentDate,jdbcType=VARCHAR},
+      locked = #{locked,jdbcType=BIGINT},
+      borrowing_formId = #{borrowingFormid,jdbcType=INTEGER},
+      borrowing_productId = #{borrowingProductid,jdbcType=INTEGER},
+      borrowing_productName = #{borrowingProductname,jdbcType=VARCHAR},
+      total_phase = #{totalPhase,jdbcType=INTEGER},
+      pase_due = #{paseDue,jdbcType=BIGINT},
+      is_current_repayment_phase = #{isCurrentRepaymentPhase,jdbcType=BIGINT},
+      retailer_goods_id = #{retailerGoodsId,jdbcType=INTEGER},
+      retailer_goods_name = #{retailerGoodsName,jdbcType=VARCHAR},
+      overdue_amount = #{overdueAmount,jdbcType=DECIMAL},
+      is_allocation_complete = #{isAllocationComplete,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

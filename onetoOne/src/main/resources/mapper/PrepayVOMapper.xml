@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.dao.mapper.PrepayVOMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.entity.repay.model.PrepayVO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="loan_code" property="loanCode" jdbcType="VARCHAR" />
+    <result column="repayment_date" property="repaymentDate" jdbcType="DATE" />
+    <result column="repayment_principal" property="repaymentPrincipal" jdbcType="DECIMAL" />
+    <result column="repayment_interest" property="repaymentInterest" jdbcType="DECIMAL" />
+    <result column="service_charge" property="serviceCharge" jdbcType="DECIMAL" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="prepayment_service_charge" property="prepaymentServiceCharge" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, create_date, modify_date, loan_code, repayment_date, repayment_principal, repayment_interest, 
+    service_charge, type, prepayment_service_charge
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ooteco.entity.repay.model.PrepayVOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ath_prepay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from ath_prepay
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from ath_prepay
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ooteco.entity.repay.model.PrepayVOExample" >
+    delete from ath_prepay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ooteco.entity.repay.model.PrepayVO" >
+    insert into ath_prepay (id, create_date, modify_date, 
+      loan_code, repayment_date, repayment_principal, 
+      repayment_interest, service_charge, type, 
+      prepayment_service_charge)
+    values (#{id,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{loanCode,jdbcType=VARCHAR}, #{repaymentDate,jdbcType=DATE}, #{repaymentPrincipal,jdbcType=DECIMAL}, 
+      #{repaymentInterest,jdbcType=DECIMAL}, #{serviceCharge,jdbcType=DECIMAL}, #{type,jdbcType=VARCHAR}, 
+      #{prepaymentServiceCharge,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ooteco.entity.repay.model.PrepayVO" >
+    insert into ath_prepay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="loanCode != null" >
+        loan_code,
+      </if>
+      <if test="repaymentDate != null" >
+        repayment_date,
+      </if>
+      <if test="repaymentPrincipal != null" >
+        repayment_principal,
+      </if>
+      <if test="repaymentInterest != null" >
+        repayment_interest,
+      </if>
+      <if test="serviceCharge != null" >
+        service_charge,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="prepaymentServiceCharge != null" >
+        prepayment_service_charge,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loanCode != null" >
+        #{loanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentDate != null" >
+        #{repaymentDate,jdbcType=DATE},
+      </if>
+      <if test="repaymentPrincipal != null" >
+        #{repaymentPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentInterest != null" >
+        #{repaymentInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceCharge != null" >
+        #{serviceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="prepaymentServiceCharge != null" >
+        #{prepaymentServiceCharge,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ooteco.entity.repay.model.PrepayVOExample" resultType="java.lang.Integer" >
+    select count(*) from ath_prepay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ath_prepay
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null" >
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.loanCode != null" >
+        loan_code = #{record.loanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repaymentDate != null" >
+        repayment_date = #{record.repaymentDate,jdbcType=DATE},
+      </if>
+      <if test="record.repaymentPrincipal != null" >
+        repayment_principal = #{record.repaymentPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.repaymentInterest != null" >
+        repayment_interest = #{record.repaymentInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.serviceCharge != null" >
+        service_charge = #{record.serviceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prepaymentServiceCharge != null" >
+        prepayment_service_charge = #{record.prepaymentServiceCharge,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ath_prepay
+    set id = #{record.id,jdbcType=BIGINT},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      loan_code = #{record.loanCode,jdbcType=VARCHAR},
+      repayment_date = #{record.repaymentDate,jdbcType=DATE},
+      repayment_principal = #{record.repaymentPrincipal,jdbcType=DECIMAL},
+      repayment_interest = #{record.repaymentInterest,jdbcType=DECIMAL},
+      service_charge = #{record.serviceCharge,jdbcType=DECIMAL},
+      type = #{record.type,jdbcType=VARCHAR},
+      prepayment_service_charge = #{record.prepaymentServiceCharge,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ooteco.entity.repay.model.PrepayVO" >
+    update ath_prepay
+    <set >
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loanCode != null" >
+        loan_code = #{loanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="repaymentDate != null" >
+        repayment_date = #{repaymentDate,jdbcType=DATE},
+      </if>
+      <if test="repaymentPrincipal != null" >
+        repayment_principal = #{repaymentPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentInterest != null" >
+        repayment_interest = #{repaymentInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceCharge != null" >
+        service_charge = #{serviceCharge,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="prepaymentServiceCharge != null" >
+        prepayment_service_charge = #{prepaymentServiceCharge,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ooteco.entity.repay.model.PrepayVO" >
+    update ath_prepay
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      loan_code = #{loanCode,jdbcType=VARCHAR},
+      repayment_date = #{repaymentDate,jdbcType=DATE},
+      repayment_principal = #{repaymentPrincipal,jdbcType=DECIMAL},
+      repayment_interest = #{repaymentInterest,jdbcType=DECIMAL},
+      service_charge = #{serviceCharge,jdbcType=DECIMAL},
+      type = #{type,jdbcType=VARCHAR},
+      prepayment_service_charge = #{prepaymentServiceCharge,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

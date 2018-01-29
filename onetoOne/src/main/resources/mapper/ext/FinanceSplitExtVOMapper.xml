@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.dao.mapper.ext.FinanceSplitExtVOMapper" >
+  <insert id="insertPrepayFinance">
+      insert into
+            ath_finance_split(
+                finance_code,
+                start_date,
+                expire_date,
+                period,
+                amount,
+                process,
+                prepay_loan_code,
+                user_code,
+                rate,
+                finance_products_id
+            )
+      select
+            finance_code
+            ,#{prepayDate}
+            ,loan_expire_date
+            ,min(datediff(loan_expire_date,#{prepayDate}))
+            ,sum(allot_amount)
+            ,'2'
+            ,#{loanCode}
+            ,finance_user_code
+            ,loan_rate
+            ,finance_products_id
+      from
+            ath_finance_loan_match
+      WHERE
+            loan_code = #{loanCode}
+            and loan_expire_date > #{prepayDate}
+            and status = '1'
+            group by finance_code,loan_expire_date,loan_rate,finance_products_id
+        order by
+            finance_code
+  </insert>
+
+    <update id="updateUncompletedFinanceStartDate">
+        update ath_finance_split set
+              start_date = date_format(now(),'%Y%m%d')
+              where status = '0'
+              and start_date &lt; date_format(now(),'%Y%m%d')
+              and is_valid = 1
+              and prepay_loan_code is not NULL
+    </update>
+
+    <select id="getCurrentTotalAmount" resultType="java.math.BigDecimal">
+        select sum(amount) from ath_finance_split where is_valid = 1
+    </select>
+</mapper>

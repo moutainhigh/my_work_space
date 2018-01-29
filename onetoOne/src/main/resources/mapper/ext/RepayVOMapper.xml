@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.dao.mapper.ext.RepayExtVOMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.entity.repay.model.RepayVO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="repayment_plan_id" property="repaymentPlanId" jdbcType="BIGINT" />
+    <result column="loan_code" property="loanCode" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="periods_time" property="periodsTime" jdbcType="INTEGER" />
+    <result column="loan_start_date" property="loanStartDate" jdbcType="DATE" />
+    <result column="repayment_date" property="repaymentDate" jdbcType="DATE" />
+    <result column="real_repayment_date" property="realRepaymentDate" jdbcType="DATE" />
+    <result column="principal" property="principal" jdbcType="DECIMAL" />
+    <result column="interest" property="interest" jdbcType="DECIMAL" />
+    <result column="service_charge" property="serviceCharge" jdbcType="DECIMAL" />
+    <result column="consulting_fee" property="consultingFee" jdbcType="DECIMAL" />
+    <result column="default_interest" property="defaultInterest" jdbcType="DECIMAL" />
+    <result column="prepayment_service_charge" property="prepaymentServiceCharge" jdbcType="DECIMAL" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="findMinDate" resultType="DATE" >
+    select min(loan_start_date) from ath_repay
+  </select>
+  <select id="findMaxDate" resultType="DATE" >
+    select max(loan_start_date) from ath_repay
+  </select>
+</mapper>

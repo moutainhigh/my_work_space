@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.dao.mapper.ext.FinanceVOExtMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.entity.finance.model.FinanceVO" >
+    <id column="finance_code" property="financeCode" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="user_code" property="userCode" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="id_number" property="idNumber" jdbcType="VARCHAR" />
+    <result column="finance_money" property="financeMoney" jdbcType="DECIMAL" />
+    <result column="finance_products" property="financeProducts" jdbcType="VARCHAR" />
+    <result column="finance_products_id" property="financeProductsId" jdbcType="INTEGER" />
+    <result column="investment_horizon" property="investmentHorizon" jdbcType="INTEGER" />
+    <result column="month_period" property="monthPeriod" jdbcType="INTEGER" />
+    <result column="finance_date" property="financeDate" jdbcType="DATE" />
+    <result column="redemption_date" property="redemptionDate" jdbcType="DATE" />
+    <result column="real_redemption_date" property="realRedemptionDate" jdbcType="DATE" />
+    <result column="real_rate" property="realRate" jdbcType="DECIMAL" />
+  </resultMap>
+  <select id="selectBySuperUser" resultMap="BaseResultMap">
+    select * from ath_finance where create_date = modify_date and user_code = #{userCode}
+  </select>
+
+  <select id="getFinanceResidueLimit" resultType="java.math.BigDecimal">
+    select
+     sum( principal ) from
+     ath_repay_split
+    where
+     start_date = #{date}
+     and is_valid = 1
+     and status = 0
+     and expire_date >= date_add(
+      start_date,
+      interval #{month} MONTH
+     )
+  </select>
+
+  <select id="getLastMatchFinance" resultMap="BaseResultMap">
+     SELECT
+        b.finance_money,
+        a.modify_date
+    FROM
+        (
+            SELECT
+                finance_code,modify_date
+            FROM
+                ath_finance_loan_match
+            ORDER BY
+                modify_date DESC
+            LIMIT 1
+        ) a,
+        ath_finance b
+    WHERE
+        a.finance_code = b.finance_code
+  </select>
+</mapper>

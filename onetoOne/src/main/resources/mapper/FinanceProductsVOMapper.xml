@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.dao.mapper.FinanceProductsVOMapper" >
+  <resultMap id="BaseResultMap" type="com.ooteco.entity.financeProducts.model.FinanceProductsVO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="raise_date" property="raiseDate" jdbcType="DATE" />
+    <result column="carry_interest_date" property="carryInterestDate" jdbcType="DATE" />
+    <result column="expire_date" property="expireDate" jdbcType="DATE" />
+    <result column="days" property="days" jdbcType="INTEGER" />
+    <result column="predict_year_earnings" property="predictYearEarnings" jdbcType="VARCHAR" />
+    <result column="sales_volume" property="salesVolume" jdbcType="DECIMAL" />
+    <result column="expire_interest" property="expireInterest" jdbcType="DECIMAL" />
+    <result column="expire_returned_money" property="expireReturnedMoney" jdbcType="DECIMAL" />
+    <result column="invest_count" property="investCount" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="to_asset_name" property="toAssetName" jdbcType="VARCHAR" />
+    <result column="year_days" property="yearDays" jdbcType="INTEGER" />
+    <result column="year_sales_volume" property="yearSalesVolume" jdbcType="DECIMAL" />
+    <result column="procedure_rate" property="procedureRate" jdbcType="DECIMAL" />
+    <result column="procedure_price" property="procedurePrice" jdbcType="DECIMAL" />
+    <result column="asset_rate" property="assetRate" jdbcType="DECIMAL" />
+    <result column="expire_asset_cash_interest" property="expireAssetCashInterest" jdbcType="DECIMAL" />
+    <result column="interest_differential" property="interestDifferential" jdbcType="DECIMAL" />
+    <result column="year_sale" property="yearSale" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, code, project_name, raise_date, carry_interest_date, expire_date, days, predict_year_earnings, 
+    sales_volume, expire_interest, expire_returned_money, invest_count, status, to_asset_name, 
+    year_days, year_sales_volume, procedure_rate, procedure_price, asset_rate, expire_asset_cash_interest, 
+    interest_differential, year_sale
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ooteco.entity.financeProducts.model.FinanceProductsVOExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from finance_products
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from finance_products
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from finance_products
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ooteco.entity.financeProducts.model.FinanceProductsVOExample" >
+    delete from finance_products
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ooteco.entity.financeProducts.model.FinanceProductsVO" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into finance_products (code, project_name, raise_date, 
+      carry_interest_date, expire_date, days, 
+      predict_year_earnings, sales_volume, expire_interest, 
+      expire_returned_money, invest_count, status, 
+      to_asset_name, year_days, year_sales_volume, 
+      procedure_rate, procedure_price, asset_rate, 
+      expire_asset_cash_interest, interest_differential, 
+      year_sale)
+    values (#{code,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{raiseDate,jdbcType=DATE}, 
+      #{carryInterestDate,jdbcType=DATE}, #{expireDate,jdbcType=DATE}, #{days,jdbcType=INTEGER}, 
+      #{predictYearEarnings,jdbcType=VARCHAR}, #{salesVolume,jdbcType=DECIMAL}, #{expireInterest,jdbcType=DECIMAL}, 
+      #{expireReturnedMoney,jdbcType=DECIMAL}, #{investCount,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, 
+      #{toAssetName,jdbcType=VARCHAR}, #{yearDays,jdbcType=INTEGER}, #{yearSalesVolume,jdbcType=DECIMAL}, 
+      #{procedureRate,jdbcType=DECIMAL}, #{procedurePrice,jdbcType=DECIMAL}, #{assetRate,jdbcType=DECIMAL}, 
+      #{expireAssetCashInterest,jdbcType=DECIMAL}, #{interestDifferential,jdbcType=DECIMAL}, 
+      #{yearSale,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ooteco.entity.financeProducts.model.FinanceProductsVO" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into finance_products
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="projectName != null" >
+        project_name,
+      </if>
+      <if test="raiseDate != null" >
+        raise_date,
+      </if>
+      <if test="carryInterestDate != null" >
+        carry_interest_date,
+      </if>
+      <if test="expireDate != null" >
+        expire_date,
+      </if>
+      <if test="days != null" >
+        days,
+      </if>
+      <if test="predictYearEarnings != null" >
+        predict_year_earnings,
+      </if>
+      <if test="salesVolume != null" >
+        sales_volume,
+      </if>
+      <if test="expireInterest != null" >
+        expire_interest,
+      </if>
+      <if test="expireReturnedMoney != null" >
+        expire_returned_money,
+      </if>
+      <if test="investCount != null" >
+        invest_count,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="toAssetName != null" >
+        to_asset_name,
+      </if>
+      <if test="yearDays != null" >
+        year_days,
+      </if>
+      <if test="yearSalesVolume != null" >
+        year_sales_volume,
+      </if>
+      <if test="procedureRate != null" >
+        procedure_rate,
+      </if>
+      <if test="procedurePrice != null" >
+        procedure_price,
+      </if>
+      <if test="assetRate != null" >
+        asset_rate,
+      </if>
+      <if test="expireAssetCashInterest != null" >
+        expire_asset_cash_interest,
+      </if>
+      <if test="interestDifferential != null" >
+        interest_differential,
+      </if>
+      <if test="yearSale != null" >
+        year_sale,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="code != null" >
+        #{code,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="raiseDate != null" >
+        #{raiseDate,jdbcType=DATE},
+      </if>
+      <if test="carryInterestDate != null" >
+        #{carryInterestDate,jdbcType=DATE},
+      </if>
+      <if test="expireDate != null" >
+        #{expireDate,jdbcType=DATE},
+      </if>
+      <if test="days != null" >
+        #{days,jdbcType=INTEGER},
+      </if>
+      <if test="predictYearEarnings != null" >
+        #{predictYearEarnings,jdbcType=VARCHAR},
+      </if>
+      <if test="salesVolume != null" >
+        #{salesVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="expireInterest != null" >
+        #{expireInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="expireReturnedMoney != null" >
+        #{expireReturnedMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="investCount != null" >
+        #{investCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="toAssetName != null" >
+        #{toAssetName,jdbcType=VARCHAR},
+      </if>
+      <if test="yearDays != null" >
+        #{yearDays,jdbcType=INTEGER},
+      </if>
+      <if test="yearSalesVolume != null" >
+        #{yearSalesVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="procedureRate != null" >
+        #{procedureRate,jdbcType=DECIMAL},
+      </if>
+      <if test="procedurePrice != null" >
+        #{procedurePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="assetRate != null" >
+        #{assetRate,jdbcType=DECIMAL},
+      </if>
+      <if test="expireAssetCashInterest != null" >
+        #{expireAssetCashInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="interestDifferential != null" >
+        #{interestDifferential,jdbcType=DECIMAL},
+      </if>
+      <if test="yearSale != null" >
+        #{yearSale,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ooteco.entity.financeProducts.model.FinanceProductsVOExample" resultType="java.lang.Integer" >
+    select count(*) from finance_products
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update finance_products
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.code != null" >
+        code = #{record.code,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectName != null" >
+        project_name = #{record.projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.raiseDate != null" >
+        raise_date = #{record.raiseDate,jdbcType=DATE},
+      </if>
+      <if test="record.carryInterestDate != null" >
+        carry_interest_date = #{record.carryInterestDate,jdbcType=DATE},
+      </if>
+      <if test="record.expireDate != null" >
+        expire_date = #{record.expireDate,jdbcType=DATE},
+      </if>
+      <if test="record.days != null" >
+        days = #{record.days,jdbcType=INTEGER},
+      </if>
+      <if test="record.predictYearEarnings != null" >
+        predict_year_earnings = #{record.predictYearEarnings,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesVolume != null" >
+        sales_volume = #{record.salesVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="record.expireInterest != null" >
+        expire_interest = #{record.expireInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.expireReturnedMoney != null" >
+        expire_returned_money = #{record.expireReturnedMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.investCount != null" >
+        invest_count = #{record.investCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toAssetName != null" >
+        to_asset_name = #{record.toAssetName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yearDays != null" >
+        year_days = #{record.yearDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.yearSalesVolume != null" >
+        year_sales_volume = #{record.yearSalesVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="record.procedureRate != null" >
+        procedure_rate = #{record.procedureRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.procedurePrice != null" >
+        procedure_price = #{record.procedurePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.assetRate != null" >
+        asset_rate = #{record.assetRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.expireAssetCashInterest != null" >
+        expire_asset_cash_interest = #{record.expireAssetCashInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interestDifferential != null" >
+        interest_differential = #{record.interestDifferential,jdbcType=DECIMAL},
+      </if>
+      <if test="record.yearSale != null" >
+        year_sale = #{record.yearSale,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update finance_products
+    set id = #{record.id,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=INTEGER},
+      project_name = #{record.projectName,jdbcType=VARCHAR},
+      raise_date = #{record.raiseDate,jdbcType=DATE},
+      carry_interest_date = #{record.carryInterestDate,jdbcType=DATE},
+      expire_date = #{record.expireDate,jdbcType=DATE},
+      days = #{record.days,jdbcType=INTEGER},
+      predict_year_earnings = #{record.predictYearEarnings,jdbcType=VARCHAR},
+      sales_volume = #{record.salesVolume,jdbcType=DECIMAL},
+      expire_interest = #{record.expireInterest,jdbcType=DECIMAL},
+      expire_returned_money = #{record.expireReturnedMoney,jdbcType=DECIMAL},
+      invest_count = #{record.investCount,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=VARCHAR},
+      to_asset_name = #{record.toAssetName,jdbcType=VARCHAR},
+      year_days = #{record.yearDays,jdbcType=INTEGER},
+      year_sales_volume = #{record.yearSalesVolume,jdbcType=DECIMAL},
+      procedure_rate = #{record.procedureRate,jdbcType=DECIMAL},
+      procedure_price = #{record.procedurePrice,jdbcType=DECIMAL},
+      asset_rate = #{record.assetRate,jdbcType=DECIMAL},
+      expire_asset_cash_interest = #{record.expireAssetCashInterest,jdbcType=DECIMAL},
+      interest_differential = #{record.interestDifferential,jdbcType=DECIMAL},
+      year_sale = #{record.yearSale,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ooteco.entity.financeProducts.model.FinanceProductsVO" >
+    update finance_products
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="raiseDate != null" >
+        raise_date = #{raiseDate,jdbcType=DATE},
+      </if>
+      <if test="carryInterestDate != null" >
+        carry_interest_date = #{carryInterestDate,jdbcType=DATE},
+      </if>
+      <if test="expireDate != null" >
+        expire_date = #{expireDate,jdbcType=DATE},
+      </if>
+      <if test="days != null" >
+        days = #{days,jdbcType=INTEGER},
+      </if>
+      <if test="predictYearEarnings != null" >
+        predict_year_earnings = #{predictYearEarnings,jdbcType=VARCHAR},
+      </if>
+      <if test="salesVolume != null" >
+        sales_volume = #{salesVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="expireInterest != null" >
+        expire_interest = #{expireInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="expireReturnedMoney != null" >
+        expire_returned_money = #{expireReturnedMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="investCount != null" >
+        invest_count = #{investCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="toAssetName != null" >
+        to_asset_name = #{toAssetName,jdbcType=VARCHAR},
+      </if>
+      <if test="yearDays != null" >
+        year_days = #{yearDays,jdbcType=INTEGER},
+      </if>
+      <if test="yearSalesVolume != null" >
+        year_sales_volume = #{yearSalesVolume,jdbcType=DECIMAL},
+      </if>
+      <if test="procedureRate != null" >
+        procedure_rate = #{procedureRate,jdbcType=DECIMAL},
+      </if>
+      <if test="procedurePrice != null" >
+        procedure_price = #{procedurePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="assetRate != null" >
+        asset_rate = #{assetRate,jdbcType=DECIMAL},
+      </if>
+      <if test="expireAssetCashInterest != null" >
+        expire_asset_cash_interest = #{expireAssetCashInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="interestDifferential != null" >
+        interest_differential = #{interestDifferential,jdbcType=DECIMAL},
+      </if>
+      <if test="yearSale != null" >
+        year_sale = #{yearSale,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ooteco.entity.financeProducts.model.FinanceProductsVO" >
+    update finance_products
+    set code = #{code,jdbcType=INTEGER},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      raise_date = #{raiseDate,jdbcType=DATE},
+      carry_interest_date = #{carryInterestDate,jdbcType=DATE},
+      expire_date = #{expireDate,jdbcType=DATE},
+      days = #{days,jdbcType=INTEGER},
+      predict_year_earnings = #{predictYearEarnings,jdbcType=VARCHAR},
+      sales_volume = #{salesVolume,jdbcType=DECIMAL},
+      expire_interest = #{expireInterest,jdbcType=DECIMAL},
+      expire_returned_money = #{expireReturnedMoney,jdbcType=DECIMAL},
+      invest_count = #{investCount,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      to_asset_name = #{toAssetName,jdbcType=VARCHAR},
+      year_days = #{yearDays,jdbcType=INTEGER},
+      year_sales_volume = #{yearSalesVolume,jdbcType=DECIMAL},
+      procedure_rate = #{procedureRate,jdbcType=DECIMAL},
+      procedure_price = #{procedurePrice,jdbcType=DECIMAL},
+      asset_rate = #{assetRate,jdbcType=DECIMAL},
+      expire_asset_cash_interest = #{expireAssetCashInterest,jdbcType=DECIMAL},
+      interest_differential = #{interestDifferential,jdbcType=DECIMAL},
+      year_sale = #{yearSale,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

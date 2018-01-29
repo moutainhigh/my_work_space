@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ooteco.dao.mapper.ext.FinanceLoanMatchExtVOMapper" >
+    <resultMap id="LoanFullScaleDetailMap" type="com.ooteco.entity.loan.model.resp.LoanFullScaleDetail">
+        <result column="modify_date" property="matchTime" jdbcType="TIMESTAMP" />
+        <result column="loan_user_code" property="userCode" jdbcType="VARCHAR" />
+        <result column="finance_code" property="financeCode" jdbcType="VARCHAR" />
+        <result column="loan_start_date" property="startDate" jdbcType="VARCHAR" />
+        <result column="loan_expire_date" property="endDate" jdbcType="VARCHAR" />
+        <result column="allot_amount" property="loanMoney" jdbcType="DECIMAL" />
+        <result column="interest" property="interest" jdbcType="DECIMAL" />
+        <result column="finance_products_id" property="financeProductsId" javaType="INTEGER"/>
+    </resultMap>
+    <resultMap id="BaseResultMap" type="com.ooteco.entity.match.model.FinanceLoanMatchExtVO" extends="com.ooteco.dao.mapper.FinanceLoanMatchVOMapper.BaseResultMap">
+        <result column="finance_expire_date" property="financeExpireDate" jdbcType="DATE" />
+    </resultMap>
+  <update id="updatePrepayLoanMatchedFinance">
+    update ath_finance_loan_match
+    set
+    <!--status =
+    case when loan_start_date &gt; #{prepayDate}
+    THEN '0'
+    ELSE '1'
+    END,-->
+    loan_expire_date = #{prepayDate}
+    where
+    loan_code = #{loanCode}
+    and loan_expire_date &gt;= #{prepayDate}
+    and status = '1'
+  </update>
+
+  <update id="updatePreRedeemFinanceMatchedLoan">
+    update ath_finance_loan_match
+    set
+    <!-- status =
+    case when loan_start_date &gt; #{preRedeemDate}
+    THEN '0'
+    ELSE '1'
+    END,-->
+    loan_expire_date = #{preRedeemDate}
+    where
+    finance_code = #{financeCode}
+    and loan_expire_date &gt;= #{preRedeemDate}
+    and status = '1'
+  </update>
+
+    <select id="getFullScaleLoanAllotDetails" resultMap="LoanFullScaleDetailMap">
+        select
+        a.loan_user_code userCode,
+        a.allot_amount,
+        round(a.allot_amount*a.loan_rate*datediff(a.loan_expire_date,a.loan_start_date)/360,6) interest,
+        date_format(a.modify_date, '%Y%m%d%H%I%S') matchTime,
+        date_format(a.loan_start_date, '%Y%m%d') startDate,
+        date_format(a.loan_expire_date, '%Y%m%d') endDate,
+        a.finance_code financeCode,
+        a.finance_products_id financeProductsId,
+        a.periods_time periodsTime
+        from
+        ath_finance_loan_match a
+        where
+        a.loan_code = #{loanCode}
+        and a.status = '1'
+    </select>
+
+    <select id = "getSuperAccountPurchaseMoney" resultType="java.math.BigDecimal">
+        select CASE WHEN sum(a.principal) is null THEN '0' ELSE sum(a.principal) END as money from(select DISTINCT a.* from ath_repay_split a,ath_finance_loan_match b
+        WHERE
+        a.loan_code = b.loan_code
+            and a.status = 0
+            and start_date = #{date}
+            and a.is_valid = 1) a;
+    </select>
+
+    <select id="getNeverMatchedLoanCodes" resultType="java.lang.String">
+        select a.loan_code loanCode from ath_loan a
+        where not EXISTS(
+            select * from ath_finance_loan_match b
+            where a.loan_code = b.loan_code
+        )
+    </select>
+    <select id="getLoanExpireButFinanceNotExpireRecords" resultMap="BaseResultMap">
+        select
+            a.*,b.expire_date finance_expire_date
+        from
+            ath_finance_loan_match a,
+            ath_finance_split b
+        where
+            a.finance_split_id = b.id
+            and a.loan_expire_date = #{currentDate}
+            and b.expire_date &gt; a.loan_expire_date
+            and b.is_valid = 1
+            and b.status = '1'
+    </select>
+    <select id="getTotalMatchAmount" resultType="java.math.BigDecimal">
+        select sum(allot_amount) from ath_finance_loan_match
+    </select>
+</mapper>
