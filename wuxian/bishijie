@@ -1,0 +1,63 @@
+# coding:utf-8 #
+import json
+import re
+import time
+import urllib.parse
+import urllib.request
+
+from bs4 import BeautifulSoup
+
+
+def timeToStampe(dt):
+    timeArray = time.strptime(dt, "%Y-%m-%d %H:%M:%S")
+    # 转换成时间戳
+    timestamp = time.mktime(timeArray)
+    return timestamp
+
+
+def getTimeFromStampe(timestamp):
+    time_local = time.localtime(timestamp)
+    # 转换成新的时间格式(2016-05-05 20:28:54)
+    dt = time.strftime("%Y-%m-%d %H:%M:%S", time_local)
+    return dt
+
+
+def getDatas(index):
+    url = 'http://www.bishijie.com/api/news/?size=100&timestamp='
+    response_result = urllib.request.urlopen(url).read()
+    tmp = json.loads(response_result)
+    # 循环div获取详细信息
+    all_div = None
+    try:
+        all_div = tmp['data']['2018-02-04']['buttom']
+    except KeyError:
+        return False
+
+    for item in all_div:
+        print(item['newsflash_id'])
+        print(getTimeFromStampe(item['issue_time']))
+        content = item['content']
+        content = re.sub(r'<.*>', "", content)
+        print(re.sub("\n", "", content))
+
+
+def getFirstIndex():
+    url = 'http://www.jinse.com/lives'
+    user_agent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36'
+    headers = {'User-Agent': user_agent}
+    data = urllib.parse.urlencode(headers)
+    response_result = urllib.request.urlopen(url + '?' + data).read()
+    html = response_result.decode('utf-8')
+    soup = BeautifulSoup(html, 'html.parser')
+    all_div = soup.find_all('li', attrs={'class': 'clearfix'})
+    return all_div[0]['data-id']
+
+
+if __name__ == "__main__":
+    flag = True
+    first = getFirstIndex();
+    for i in range(first, 0, -10):
+        flag = getDatas(str(i))
+        if flag == False:
+            break
+        time.sleep(5)
