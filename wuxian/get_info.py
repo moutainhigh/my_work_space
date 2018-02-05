@@ -22,6 +22,7 @@ def requestCnblogs(index):
     print('请求数据')
     # url = 'http://www.cnblogs.com/mvc/AggSite/PostList.aspx'
     url = 'http://www.jinse.com/lives'
+    # url = 'http://www.qukuaiwang.com.cn/News/index/p/'+str(index)+'.html'
     # url = 'http://www.jinse.com/ajax/lives/getList?search=&id=11044&flag=down'
 
     value= {

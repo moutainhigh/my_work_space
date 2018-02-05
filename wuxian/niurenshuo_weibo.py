@@ -23,43 +23,40 @@ def getTimeFromStampe(timestamp):
 
 
 def getDatas(index):
-    url = 'http://www.bishijie.com/api/news/?size=100&timestamp='
+    url = 'http://www.jinse.com/ajax/weibo/getList?flag=down&id='+str(index)
     response_result = urllib.request.urlopen(url).read()
     tmp = json.loads(response_result)
     # 循环div获取详细信息
     all_div = None
     try:
-        all_div = tmp['data']['2018-02-04']['buttom']
+        all_div = tmp['data']#['2018-02-04']['data']
     except KeyError:
         return False
-
+    lastId=None
     for item in all_div:
-        print(item['newsflash_id'])
-        print(getTimeFromStampe(item['issue_time']))
+        print(item['id'])
+        print(item['created_at'])
         content = item['content']
-        content = re.sub(r'<.*>', "", content)
+        # content = re.sub(r'<br.*>|<a.*>', "", content)
         print(re.sub("\n", "", content))
+        content = item['chinese']
+        # content = re.sub(r'<br.*>|<a.*>', "", content)
+        print(re.sub("\n", "", content))
+    return int(item['id'])
 
 
-def getFirstIndex():
-    url = 'http://www.jinse.com/lives'
-    user_agent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.82 Safari/537.36'
-    headers = {'User-Agent': user_agent}
-    data = urllib.parse.urlencode(headers)
-    response_result = urllib.request.urlopen(url + '?' + data).read()
-    html = response_result.decode('utf-8')
-    soup = BeautifulSoup(html, 'html.parser')
-    all_div = soup.find_all('li', attrs={'class': 'clearfix'})
-    return all_div[0]['data-id']
 
 
 if __name__ == "__main__":
     flag = True
-    first = getFirstIndex();
-    for i in range(first, 0, -10):
-        flag = getDatas(str(i))
+    first=getDatas(0)
+    while True:
+        flag = getDatas(first)
         if flag == False:
             break
         time.sleep(5)
+        first=flag
         # http: // www.jinse.com / weibo
         # http: // www.jinse.com / twitter
+
+
